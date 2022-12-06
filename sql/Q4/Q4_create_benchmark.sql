@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS Q4;
-USE Q4;
+CREATE DATABASE IF NOT EXISTS q4_db;
+USE q4_db;
 CREATE TABLE IF NOT EXISTS action(flattenRequest0 string,flattenRequest1 timestamp,bo_POS_CASH_balance0 timestamp,action3 int,index(key=(flattenRequest0), ttl=0m, ttl_type=absolute));
 CREATE TABLE IF NOT EXISTS bo_POS_CASH_balance(bo_POS_CASH_balance0 timestamp,bo_POS_CASH_balance1 bigInt,bo_POS_CASH_balance2 string,bo_POS_CASH_balance3 bigInt,bo_POS_CASH_balance4 double,bo_POS_CASH_balance4_FUTURE double,bo_POS_CASH_balance6 string,bo_POS_CASH_balance7 bigInt,bo_POS_CASH_balance8 bigInt);
 CREATE TABLE IF NOT EXISTS bo_bureau(bo_POS_CASH_balance0 timestamp,bo_POS_CASH_balance2 string,bo_bureau_balance1 bigInt,bo_bureau3 string,bo_bureau4 string,bo_bureau5 bigInt,bo_bureau6 bigInt,bo_bureau5_ENDDATE double,bo_bureau8 double,bo_bureau9 double,bo_bureau10 bigInt,bo_bureau11 double,bo_bureau11_DEBT double,bo_bureau11_LIMIT double,bo_bureau14 double,bo_bureau15 string,bo_bureau5_UPDATE bigInt,flattenRequest9 double);
