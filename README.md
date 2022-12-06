@@ -15,7 +15,7 @@ A Benchmark for Real-Time Realtional Data Feature Extraction.
 2. Download the datasets and move the data files to the dataset directory
 
   ```sh
-  wget <dataset link>; cp -r <datasets> ./dataset
+  wget -r -np -R "index.html*"  http://119.28.136.39/download/febench/data/; cp -r <dataset directory> ./dataset
   ```
 
 > Note the data files are in parquet format.
