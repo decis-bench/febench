@@ -4,8 +4,8 @@
 A Benchmark for Real-Time Realtional Data Feature Extraction.
 
 [**Getting Started**](#%EF%B8%8F-quickstart)
-| [**What is FEBench?**](#-what-is-dcbench)
-| [**Contributing**](CONTRIBUTING.md)
+| [**What is FEBench?**](#-what-is-febench)
+| [**Contributing**](#-contributing)
 </div>
 
 ## ⚡️ Quickstart
