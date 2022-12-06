@@ -1,5 +1,3 @@
-SET @@execute_mode='online';
-DEPLOY GEF2012_benchmark_service
 select * from 
 (
 select

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS GEF2012_benchmark;
-USE GEF2012_benchmark;
+CREATE DATABASE IF NOT EXISTS Q2;
+USE Q2;
 CREATE TABLE benchmark(id int,  date timestamp, wp1 double, wp2 double, wp3 double, wp4 double, wp5 double, wp6 double, wp7 double);
 CREATE TABLE test(id int,  date timestamp);
 CREATE TABLE train(date timestamp, wp1 double, wp2 double, wp3 double, wp4 double, wp5 double, wp6 double, wp7 double);

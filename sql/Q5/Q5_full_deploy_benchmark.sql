@@ -1,5 +1,3 @@
-SET @@execute_mode='online';
-DEPLOY guangfa_benchmark_service
 select  
 batch110070_guangfa_feedback_bigbigbig0_1,
 batch110067_flatten_request_eT_original_0,

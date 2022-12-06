@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS uniqlo_benchmark;
-USE uniqlo_benchmark;
+CREATE DATABASE IF NOT EXISTS Q3;
+USE Q3;
 CREATE TABLE IF NOT EXISTS feedback(feedback0 string, feedback1 timestamp, product_sku0 timestamp, feedback3 double, index(key=(feedback0), ttl=0m, ttl_type=absolute));
 CREATE TABLE IF NOT EXISTS train(feedback0 string, product_sku1 string, feedback1 timestamp, flatten_request_fz_clean_limit_1000003 timestamp, order_sales20 string, _i_order_sales20 string, index(key=(product_sku1), ttl=0m, ttl_type=absolute, ts=`feedback1`));
 CREATE TABLE IF NOT EXISTS order_cancel_return(product_sku0 timestamp, order_cancel_return1 timestamp, order_sales9 string, product_sku1 string, order_sales14 int, order_cancel_return5 string, index(key=(product_sku1), ttl=0m, ttl_type=absolute, ts=`product_sku0`));

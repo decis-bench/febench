@@ -1,5 +1,3 @@
-SET @@execute_mode='online';
-DEPLOY covid19_benchmark_service
 select
 `Id` as Id_1,
 `Date` as train_Date_original_0,

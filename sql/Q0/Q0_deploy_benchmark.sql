@@ -1,5 +1,3 @@
-SET @@execute_mode='online';
-DEPLOY nyc_benchmark_service
 select *,  
 train_dropoff_longitude_divide_11 / train_pickup_longitude_divide_11,
 train_pickup_longitude_divide_12 / train_dropoff_longitude_divide_12,

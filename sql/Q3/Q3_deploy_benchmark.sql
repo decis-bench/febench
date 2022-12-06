@@ -1,5 +1,3 @@
-SET @@execute_mode='online';
-DEPLOY uniqlo_benchmark_service
 select 
 feedback0_1,
 flatten_request_feedback1_original_0,

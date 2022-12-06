@@ -1,5 +1,3 @@
-SET @@execute_mode='online';
-DEPLOY homecredit_benchmark_service
 select 
 flattenRequest0_1,
 flattenRequest_flattenRequest1_original_0,
