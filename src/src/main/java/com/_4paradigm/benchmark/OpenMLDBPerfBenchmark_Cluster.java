@@ -343,7 +343,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             Util.executeSQL("SET @@execute_mode='online';", executor);
             String loadDataSQL;
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback/part-0000" + i + "-bf952d4c-94b4-4739-b738-24d3a1072548-c000.snappy.parquet' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -357,7 +357,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b/part-0000" + i + "-5a8f1a6a-9849-4bf0-b79f-9f1cba755adf-c000.snappy.parquet' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -371,7 +371,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7/part-0000" + i + "-94521b57-9982-447c-a515-358b4836e2a0-c000.snappy.parquet' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -385,7 +385,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6/part-0000" + i + "-9c5245e4-33bb-4830-9fcb-d78375576fbc-c000.snappy.parquet' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -399,7 +399,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5/part-0000" + i + "-21b0818d-e296-45b1-b366-0a173128dd16-c000.snappy.parquet' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -413,7 +413,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4/part-0000" + i + "-322e9046-d2df-4613-9c3a-464e40c535ca-c000.snappy.parquet' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -427,7 +427,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3/part-0000" + i + "-a44be76e-db15-45c4-bee5-d57730c8d515-c000.snappy.parquet' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
@@ -441,7 +441,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
 
 	    
-            for(int i=0; i<=0; ++i){
+            for(int i=0; i<=199; ++i){
                 if(i<10){
                     loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1/part-0000" + i + "-7ca199f5-260c-4ad6-82d9-d118fc0a8558-c000.snappy.parquet' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
                 }else if(i>=10 && i<100){
