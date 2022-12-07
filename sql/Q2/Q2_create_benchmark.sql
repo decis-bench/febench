@@ -1,5 +1,3 @@
-CREATE DATABASE IF NOT EXISTS q2_db;
-USE q2_db;
 CREATE TABLE benchmark(id int,  date timestamp, wp1 double, wp2 double, wp3 double, wp4 double, wp5 double, wp6 double, wp7 double);
 CREATE TABLE test(id int,  date timestamp);
 CREATE TABLE train(date timestamp, wp1 double, wp2 double, wp3 double, wp4 double, wp5 double, wp6 double, wp7 double);

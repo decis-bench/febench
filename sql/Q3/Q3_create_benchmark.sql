@@ -1,5 +1,3 @@
-CREATE DATABASE IF NOT EXISTS q3_db;
-USE q3_db;
 CREATE TABLE IF NOT EXISTS feedback(Q3_Col31 string, Q3_Col32 timestamp, Q3_Col0 timestamp, Q3_Col58 double, index(key=(Q3_Col31), ttl=0m, ttl_type=absolute));
 CREATE TABLE IF NOT EXISTS train(Q3_Col31 string, Q3_Col3 string, Q3_Col32 timestamp, Q3_Col33 timestamp, Q3_Col6 string, Q3_Col34 string, index(key=(Q3_Col3), ttl=0m, ttl_type=absolute, ts=`Q3_Col32`));
 CREATE TABLE IF NOT EXISTS order_cancel_return(Q3_Col0 timestamp, Q3_Col1 timestamp, Q3_Col2 string, Q3_Col3 string, Q3_Col4 int, Q3_Col5 string, index(key=(Q3_Col3), ttl=0m, ttl_type=absolute, ts=`Q3_Col0`));
