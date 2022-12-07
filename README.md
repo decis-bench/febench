@@ -22,7 +22,7 @@ A Benchmark for Real-Time Realtional Data Feature Extraction.
 
 3. Start the target system
 
-4. Update the settings in the configuration file (./conf/conf.properties)
+4. Rename the config template (/conf/conf.properties.template) into your own config file (/conf/conf.properties), and update the settings in the file 
 
   ```sh
 HOST=127.0.0.1:xxxx
