@@ -1,5 +1,3 @@
-CREATE DATABASE IF NOT EXISTS q4_db;
-USE q4_db;
 CREATE TABLE IF NOT EXISTS action(Q4_Col40 string,Q4_Col41 timestamp,Q4_Col0 timestamp,Q4_Col42 int,index(key=(Q4_Col40), ttl=0m, ttl_type=absolute));
 CREATE TABLE IF NOT EXISTS bo_POS_CASH_balance(Q4_Col0 timestamp,Q4_Col1 bigInt,Q4_Col2 string,Q4_Col3 bigInt,Q4_Col199 double,Q4_Col200 double,Q4_Col21 string,Q4_Col22 bigInt,Q4_Col23 bigInt);
 CREATE TABLE IF NOT EXISTS bo_bureau(Q4_Col0 timestamp,Q4_Col2 string,Q4_Col24 bigInt,Q4_Col25 string,Q4_Col26 string,Q4_Col27 bigInt,Q4_Col28 bigInt,Q4_Col29 double,Q4_Col30 double,Q4_Col31 double,Q4_Col32 bigInt,Q4_Col33 double,Q4_Col34 double,Q4_Col35 double,Q4_Col36 double,Q4_Col37 string,Q4_Col38 bigInt,Q4_Col39 double);
