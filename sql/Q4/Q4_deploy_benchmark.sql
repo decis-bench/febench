@@ -425,14 +425,14 @@ avg(`Q4_Col200`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_10_ as bo_POS_CASH_b
 max(`Q4_Col199`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col199_multi_max_27,
 max(`Q4_Col200`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col200_multi_max_28,
 min(`Q4_Col200`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_10_ as bo_POS_CASH_balance_Q4_Col200_multi_min_47,
-fz_topn_frequency(`Q4_Col3`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col3_multi_top3frequency_59,
-fz_topn_frequency(`Q4_Col21`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col21_multi_top3frequency_60,
-fz_topn_frequency(`Q4_Col22`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col22_multi_top3frequency_61,
-fz_topn_frequency(`Q4_Col22`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_10_ as bo_POS_CASH_balance_Q4_Col22_multi_top3frequency_62,
+topn_frequency(`Q4_Col3`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col3_multi_top3frequency_59,
+topn_frequency(`Q4_Col21`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col21_multi_top3frequency_60,
+topn_frequency(`Q4_Col22`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col22_multi_top3frequency_61,
+topn_frequency(`Q4_Col22`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_10_ as bo_POS_CASH_balance_Q4_Col22_multi_top3frequency_62,
 distinct_count(`Q4_Col3`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col3_multi_unique_count_75,
 distinct_count(`Q4_Col3`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_10_ as bo_POS_CASH_balance_Q4_Col3_multi_unique_count_76,
 distinct_count(`Q4_Col1`) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col1_multi_unique_count_77,
-fz_topn_frequency(`Q4_Col23`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col23_multi_top3frequency_224
+topn_frequency(`Q4_Col23`, 3) over bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as bo_POS_CASH_balance_Q4_Col23_multi_top3frequency_224
 from
 (select `Q4_Col41` as `Q4_Col0`, bigint(0) as `Q4_Col1`, `Q4_Col40` as `Q4_Col2`, bigint(0) as `Q4_Col3`, double(0) as `Q4_Col199`, double(0) as `Q4_Col200`, '' as `Q4_Col21`, bigint(0) as `Q4_Col22`, bigint(0) as `Q4_Col23` from `train`)
 window bo_POS_CASH_balance_Q4_Col2_Q4_Col0_0_100_ as (
@@ -456,9 +456,9 @@ max(`Q4_Col30`) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col30_multi
 min(`Q4_Col31`) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col31_multi_min_48,
 min(`Q4_Col29`) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col29_multi_min_49,
 min(`Q4_Col30`) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col30_multi_min_50,
-fz_topn_frequency(`Q4_Col37`, 3) over bo_bureau_Q4_Col2_Q4_Col0_0_100_ as bo_bureau_Q4_Col37_multi_top3frequency_63,
-fz_topn_frequency(`Q4_Col27`, 3) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col27_multi_top3frequency_64,
-fz_topn_frequency(`Q4_Col38`, 3) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col38_multi_top3frequency_65,
+topn_frequency(`Q4_Col37`, 3) over bo_bureau_Q4_Col2_Q4_Col0_0_100_ as bo_bureau_Q4_Col37_multi_top3frequency_63,
+topn_frequency(`Q4_Col27`, 3) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col27_multi_top3frequency_64,
+topn_frequency(`Q4_Col38`, 3) over bo_bureau_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_Q4_Col38_multi_top3frequency_65,
 distinct_count(`Q4_Col32`) over bo_bureau_Q4_Col2_Q4_Col0_0_100_ as bo_bureau_Q4_Col32_multi_unique_count_78,
 distinct_count(`Q4_Col25`) over bo_bureau_Q4_Col2_Q4_Col0_0_100_ as bo_bureau_Q4_Col25_multi_unique_count_79,
 distinct_count(`Q4_Col26`) over bo_bureau_Q4_Col2_Q4_Col0_0_100_ as bo_bureau_Q4_Col26_multi_unique_count_80,
@@ -488,7 +488,7 @@ max(`Q4_Col198`) over bo_installment_payment_Q4_Col2_Q4_Col0_0_10_ as bo_install
 max(`Q4_Col193`) over bo_installment_payment_Q4_Col2_Q4_Col0_0_10_ as bo_installment_payment_Q4_Col193_multi_max_37,
 min(`Q4_Col196`) over bo_installment_payment_Q4_Col2_Q4_Col0_0_100_ as bo_installment_payment_Q4_Col196_multi_min_51,
 min(`Q4_Col195`) over bo_installment_payment_Q4_Col2_Q4_Col0_0_10_ as bo_installment_payment_Q4_Col195_multi_min_52,
-fz_topn_frequency(`Q4_Col194`, 3) over bo_installment_payment_Q4_Col2_Q4_Col0_0_10_ as bo_installment_payment_Q4_Col194_multi_top3frequency_67,
+topn_frequency(`Q4_Col194`, 3) over bo_installment_payment_Q4_Col2_Q4_Col0_0_10_ as bo_installment_payment_Q4_Col194_multi_top3frequency_67,
 distinct_count(`Q4_Col194`) over bo_installment_payment_Q4_Col2_Q4_Col0_0_100_ as bo_installment_payment_Q4_Col194_multi_unique_count_91,
 distinct_count(`Q4_Col1`) over bo_installment_payment_Q4_Col2_Q4_Col0_0_10_ as bo_installment_payment_Q4_Col1_multi_unique_count_92
 from
@@ -542,13 +542,13 @@ min(`Q4_Col47`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previou
 min(`Q4_Col67`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col67_multi_min_56,
 min(`Q4_Col74`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col74_multi_min_57,
 min(`Q4_Col52`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col52_multi_min_58,
-fz_topn_frequency(`Q4_Col64`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col64_multi_top3frequency_68,
-fz_topn_frequency(`Q4_Col66`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col66_multi_top3frequency_69,
-fz_topn_frequency(`Q4_Col66`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col66_multi_top3frequency_70,
-fz_topn_frequency(`Q4_Col59`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col59_multi_top3frequency_71,
-fz_topn_frequency(`Q4_Col68`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col68_multi_top3frequency_72,
-fz_topn_frequency(`Q4_Col69`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col69_multi_top3frequency_73,
-fz_topn_frequency(`Q4_Col65`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col65_multi_top3frequency_74,
+topn_frequency(`Q4_Col64`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col64_multi_top3frequency_68,
+topn_frequency(`Q4_Col66`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col66_multi_top3frequency_69,
+topn_frequency(`Q4_Col66`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col66_multi_top3frequency_70,
+topn_frequency(`Q4_Col59`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col59_multi_top3frequency_71,
+topn_frequency(`Q4_Col68`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col68_multi_top3frequency_72,
+topn_frequency(`Q4_Col69`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col69_multi_top3frequency_73,
+topn_frequency(`Q4_Col65`, 3) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_10_ as bo_previous_applicatio_Q4_Col65_multi_top3frequency_74,
 distinct_count(`Q4_Col64`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col64_multi_unique_count_93,
 distinct_count(`Q4_Col58`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col58_multi_unique_count_94,
 distinct_count(`Q4_Col56`) over bo_previous_applicatio_Q4_Col2_Q4_Col0_0_100_ as bo_previous_applicatio_Q4_Col56_multi_unique_count_95,
@@ -575,7 +575,7 @@ last join
 (
 select
 `Q4_Col2` as Q4_Col40_67,
-fz_topn_frequency(`Q4_Col3`, 3) over bo_bureau_balance_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_balance_Q4_Col3_multi_top3frequency_66
+topn_frequency(`Q4_Col3`, 3) over bo_bureau_balance_Q4_Col2_Q4_Col0_0_10_ as bo_bureau_balance_Q4_Col3_multi_top3frequency_66
 from
 (select `Q4_Col41` as `Q4_Col0`, bigint(0) as `Q4_Col24`, bigint(0) as `Q4_Col3`, '' as `Q4_Col76`, `Q4_Col40` as `Q4_Col2` from `train`)
 window bo_bureau_balance_Q4_Col2_Q4_Col0_0_10_ as (
