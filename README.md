@@ -61,7 +61,7 @@ As online AI inference services have been rapidly deployed in many emerging appl
 
 However, there is not any study about the workload characteristics and benchmarks for RTFE, specifically in comparison with existing database workloads and benchmarks (such as TPC-C). Thus, we have cooperated with our industry partners and built a real-time feature extraction benchmark named FEBench. FEBench consists of selected datasets, query templates, and testing framework. We utilize FEBench to investigate the effectiveness of feature extraction systems and find all the tested systems have their own problems in different aspects (e.g., overall latency, tail latency, and concurrency performance). 
 
-See the detailed technical report at /paper/febench.pdf!
+See the detailed [technical report](https://github.com/decis-bench/febench/blob/main/paper/febench.pdf)!
 
 ## ✉️ Contributing
 FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Reach out to Mian Lu (lumian@4paradigm.com) if you would like to get involved or contribute!

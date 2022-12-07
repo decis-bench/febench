@@ -1,3 +1,4 @@
+-- define your deployment here
 select *,  
 train_dropoff_longitude_divide_11 / train_pickup_longitude_divide_11,
 train_pickup_longitude_divide_12 / train_dropoff_longitude_divide_12,
