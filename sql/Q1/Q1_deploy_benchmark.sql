@@ -21,7 +21,7 @@ avg(`Fatalities`) over train_Country_Region_Date_0s_2d_100 as train_Fatalities_w
 max(`Fatalities`) over train_Country_Region_Date_0s_5d_200 as train_Fatalities_window_max_16,
 max(`Fatalities`) over train_Country_Region_Date_0s_14d_200 as train_Fatalities_window_max_17,
 avg(`Fatalities`) over train_Country_Region_Date_0_10_ as train_Fatalities_window_avg_18,
-fz_top1_ratio(`Province_State`) over train_Country_Region_Date_0_10_ as train_Province_State_window_top1_ratio_19,
+top1_ratio(`Province_State`) over train_Country_Region_Date_0_10_ as train_Province_State_window_top1_ratio_19,
 case when !isnull(at(`Country_Region`, 0)) over train_Province_State_Date_0s_14d_100 then count_where(`Country_Region`, `Country_Region` = at(`Country_Region`, 0)) over train_Province_State_Date_0s_14d_100 else null end as train_Country_Region_window_count_20,
 case when !isnull(at(`Country_Region`, 0)) over train_Province_State_Date_0s_64d_100 then count_where(`Country_Region`, `Country_Region` = at(`Country_Region`, 0)) over train_Province_State_Date_0s_64d_100 else null end as train_Country_Region_window_count_21,
 dayofweek(timestamp(`Date`)) as train_Date_dayofweek_22,
