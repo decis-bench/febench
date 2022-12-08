@@ -45,9 +45,9 @@ HOST=127.0.0.1:xxxx
 DATABASE=C3
 DEPLOY_NAME=C3_service
 DATA_FOLDER_C3=./dataset/C3/
-DEPLOY_SQL_C3=./fe-query/C3/deploy.sql
-CREATE_SQL_C3=./fe-query/C3/create.sql
-DROP_SQL_C3=../fe-query/C3/drop.sql
+DEPLOY_SQL_C3=./fequery/C3/deploy.sql
+CREATE_SQL_C3=./fequery/C3/create.sql
+DROP_SQL_C3=../fequery/C3/drop.sql
 ...
 
   ```
