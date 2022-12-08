@@ -1,0 +1,10 @@
+CREATE TABLE benchmark(id int,  date timestamp, wp1 double, wp2 double, wp3 double, wp4 double, wp5 double, wp6 double, wp7 double);
+CREATE TABLE test(id int,  date timestamp);
+CREATE TABLE train(date timestamp, wp1 double, wp2 double, wp3 double, wp4 double, wp5 double, wp6 double, wp7 double);
+CREATE TABLE windforecasts_wf1(date timestamp, hors int, u string, v string, ws string, wd string);
+CREATE TABLE windforecasts_wf2(date timestamp, hors int, u string, v string, ws string, wd string);
+CREATE TABLE windforecasts_wf3(date timestamp, hors int, u string, v string, ws string, wd string);
+CREATE TABLE windforecasts_wf4(date timestamp, hors int, u string, v string, ws string, wd string);
+CREATE TABLE windforecasts_wf5(date timestamp, hors int, u string, v string, ws string, wd string);
+CREATE TABLE windforecasts_wf6(date timestamp, hors int, u string, v string, ws string, wd string);
+CREATE TABLE windforecasts_wf7(date timestamp, hors int, u string, v string, ws string, wd string);
