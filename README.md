@@ -35,15 +35,19 @@ See the detailed [technical report](https://github.com/decis-bench/febench/blob/
 4. Rename the config template (/conf/conf.properties.template) into your own config file (/conf/conf.properties), and update the settings in the file 
 
   ```sh
+DATASET_ID=5  
+DATASET_NUM=6
+...
+
 HOST=127.0.0.1:xxxx
 ...
 
 DATABASE=C3
 DEPLOY_NAME=C3_service
 DATA_FOLDER_C3=./dataset/C3/
-DEPLOY_SQL_C3=./query/C3/deploy.sql
-CREATE_SQL_C3=./query/C3/create.sql
-DROP_SQL_C3=./query/C3/drop.sql
+DEPLOY_SQL_C3=./fe-query/C3/deploy.sql
+CREATE_SQL_C3=./fe-query/C3/create.sql
+DROP_SQL_C3=../fe-query/C3/drop.sql
 ...
 
   ```
