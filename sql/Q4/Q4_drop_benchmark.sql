@@ -1,9 +1,0 @@
-DROP TABLE action;
-DROP TABLE bo_POS_CASH_balance;
-DROP TABLE bo_bureau;
-DROP TABLE bo_bureau_balance;
-DROP TABLE bo_credit_card_balance;
-DROP TABLE bo_installment_payment;
-DROP TABLE bo_part;
-DROP TABLE bo_previous_applicatio;
-DROP TABLE train;
