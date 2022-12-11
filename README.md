@@ -19,9 +19,9 @@ See the detailed [technical report](https://github.com/decis-bench/febench/blob/
 
 ## ⚡️ Quickstart
 
-This repository includes the following parts, i.e., (1) utilized features, (2) OpenMLDB evaluation, (3) Flink evaluation.
+This repository includes the following parts: (1) AI features, (2) OpenMLDB evaluation, (3) Flink evaluation.
 
-### Part 1 (Utilized Features)
+### Part 1 (AI Features)
 
 In the *features* folder: Check out the features utilized in each of the 6 AI tasks, which are selected with [the open industry-grade AutoML tool](https://github.com/4paradigm/AutoX).
 
