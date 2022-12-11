@@ -3,7 +3,6 @@
 -----
 A Benchmark for Real-Time Realtional Data Feature Extraction.
 
-
 [**What is FEBench?**](#-what-is-febench)
 | [**Getting Started**](#%EF%B8%8F-quickstart)
 | [**Contributing**](#%EF%B8%8F-contributing)
@@ -20,9 +19,17 @@ See the detailed [technical report](https://github.com/decis-bench/febench/blob/
 
 ## ⚡️ Quickstart
 
-1. Clone and enter this repository
+This repository includes the following parts, i.e., (1) utilized features, (2) OpenMLDB evaluation, (3) Flink evaluation.
 
-2. Download the datasets and move the data files to the dataset directory
+### Part 1 (Utilized Features)
+
+In the *features* folder: Check out the features utilized in each of the 6 AI tasks, which are selected with [the open industry-grade AutoML tool](https://github.com/4paradigm/AutoX).
+
+### Part 2 (OpenMLDB Evaluation)
+
+1 Clone the repository
+
+2 Download the datasets and move the data files to the dataset directory
 
   ```sh
   wget -r -np -R "index.html*"  http://119.28.136.39/download/febench/data/; cp -r <dataset directory> ./dataset
@@ -30,9 +37,9 @@ See the detailed [technical report](https://github.com/decis-bench/febench/blob/
 
 > Note the data files are in parquet format.
 
-3. Start the target system
+3 Start the cluster and enter the *OpenMLDB* folder
 
-4. Rename the config template (/conf/conf.properties.template) into your own config file (/conf/conf.properties), and update the settings in the file 
+4 Update the settings (the OpenMLDB cluster, data/query locations) in the configuration file (./conf/conf.properties)
 
   ```sh
 DATASET_ID=5  
@@ -55,19 +62,22 @@ DROP_SQL_C3=./fequery/C3/drop.sql
 > Note you can start a docker for ease of environment management.
 
 
-5. Run the testing script
+5 Run the testing script
 
-- Run the compile_test.sh file (for the first time),
+5.1 Run the compile_test.sh file (for the first time),
 
 ```bash
 ./compile_test.sh <dataset_ID>
 ```
 
-- Otherwise,
+5.2 Otherwise,
 
 ```bash
 ./test.sh <dataset_ID>
 ```
+
+![image](./imgs/openmldb-jmh.png)
+
 
 ## ✉️ Contributing
 FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Reach out to Mian Lu (lumian@4paradigm.com) if you would like to get involved or contribute!
