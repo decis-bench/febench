@@ -27,9 +27,9 @@ In the *features* folder: Check out the features utilized in each of the 6 AI ta
 
 ### Part 2 (OpenMLDB Evaluation)
 
-1 Clone the repository
+Step 1: Clone the repository
 
-2 Download the datasets and move the data files to the dataset directory
+Step 2: Download the datasets and move the data files to the dataset directory
 
   ```sh
   wget -r -np -R "index.html*"  http://119.28.136.39/download/febench/data/; cp -r <dataset directory> ./dataset
@@ -37,9 +37,9 @@ In the *features* folder: Check out the features utilized in each of the 6 AI ta
 
 > Note the data files are in parquet format.
 
-3 Start the cluster and enter the *OpenMLDB* folder
+Step 3: Start the cluster and enter the *OpenMLDB* folder
 
-4 Update the settings (the OpenMLDB cluster, data/query locations) in the configuration file (./conf/conf.properties)
+Step 4: Update the settings (the OpenMLDB cluster, data/query locations) in the configuration file (./conf/conf.properties)
 
   ```sh
 DATASET_ID=5  
@@ -62,7 +62,7 @@ DROP_SQL_C3=./fequery/C3/drop.sql
 > Note you can start a docker for ease of environment management.
 
 
-5 Run the testing script
+Step 5: Run the testing script
 
 5.1 Run the compile_test.sh file (for the first time),
 
@@ -77,6 +77,17 @@ DROP_SQL_C3=./fequery/C3/drop.sql
 ```
 
 ![image](./imgs/openmldb-jmh.png)
+
+
+### Part 2 (Flink Evaluation)
+
+Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
+
+1 In Step 3, you need to additionally start a disk-based storage engine (e.g., RocksDB) to persist the Flink table data.
+
+2 In Step 4, the configuration file is at *./src/main/resources/conf.properties*
+
+![image](./imgs/flink-jmh.png)
 
 
 ## ✉️ Contributing
