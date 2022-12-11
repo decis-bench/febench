@@ -1,7 +1,7 @@
 <div align="center">
 
 -----
-A Benchmark for Real-Time Realtional Data Feature Extraction.
+A Benchmark for Real-Time Relational Data Feature Extraction.
 
 [**What is FEBench?**](#-what-is-febench)
 | [**Getting Started**](#%EF%B8%8F-quickstart)
