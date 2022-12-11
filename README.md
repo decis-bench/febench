@@ -79,16 +79,15 @@ Step 5: Run the testing script
 ![image](./imgs/openmldb-jmh.png)
 
 
-### Part 2 (Flink Evaluation)
+### Part 3 (Flink Evaluation)
 
 Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 
-1 In Step 3, you need to additionally start a disk-based storage engine (e.g., RocksDB) to persist the Flink table data.
+1. In Step 3, you need to additionally start a disk-based storage engine (e.g., RocksDB) to persist the Flink table data.
 
-2 In Step 4, the configuration file is at *./src/main/resources/conf.properties*
+2. In Step 4, the configuration file is at *./src/main/resources/conf.properties*
 
 ![image](./imgs/flink-jmh.png)
-
 
 ## ✉️ Contributing
 FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Reach out to Mian Lu (lumian@4paradigm.com) if you would like to get involved or contribute!
