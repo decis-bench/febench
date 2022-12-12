@@ -225,50 +225,50 @@ public class flink_benchmark {
                 tenv.fromDataStream(orderDS);
                 break;
             }
-            // case 3: {
-            //     threads_flink = 50;
-            //     column_numnber = 6;
-            //     // varchar:12; integer:4; timestamp: 93; double:8
-            //     column_types.add(12);
-            //     column_types.add(12);
-            //     column_types.add(93);
-            //     column_types.add(93);
-            //     column_types.add(12);
-            //     column_types.add(12);
-            //     DataStreamSource<train_cluster3> orderDS  = env.addSource(new RichSourceFunction<train_cluster3>() {
-            //         private Boolean isRunning = true;
-            //         @Override
-            //         public void run(SourceContext<train_cluster3> ctx) throws Exception {
-            //             Random random = new Random();
-            //             while (isRunning) {
+            case 3: {
+                threads_flink = 50;
+                column_numnber = 6;
+                // varchar:12; integer:4; timestamp: 93; double:8
+                column_types.add(12);
+                column_types.add(12);
+                column_types.add(93);
+                column_types.add(93);
+                column_types.add(12);
+                column_types.add(12);
+                DataStreamSource<train_cluster3> orderDS  = env.addSource(new RichSourceFunction<train_cluster3>() {
+                    private Boolean isRunning = true;
+                    @Override
+                    public void run(SourceContext<train_cluster3> ctx) throws Exception {
+                        Random random = new Random();
+                        while (isRunning) {
             
-            //                 java.sql.Timestamp timestamp1 = new java.sql.Timestamp(System.currentTimeMillis());
+                            java.sql.Timestamp timestamp1 = new java.sql.Timestamp(System.currentTimeMillis());
             
-            //                 train_cluster3 order = new train_cluster3("test", "test", timestamp1, timestamp1, "test", "test");
-            //                 TimeUnit.SECONDS.sleep(1);
-            //                 ctx.collect(order);
-            //             }
-            //         }
+                            train_cluster3 order = new train_cluster3("test", "test", timestamp1, timestamp1, "test", "test");
+                            TimeUnit.SECONDS.sleep(1);
+                            ctx.collect(order);
+                        }
+                    }
             
-            //         @Override
-            //         public void cancel() {
-            //             isRunning = false;
-            //         }
-            //     });
-            //     tenv = StreamTableEnvironment.create(env);
-            //     DataStream<train_cluster3> watermakerDS = orderDS.assignTimestampsAndWatermarks(
-            //             WatermarkStrategy.<train_cluster3>forBoundedOutOfOrderness(Duration.ofDays(7))
-            //                     .withTimestampAssigner(new SerializableTimestampAssigner<train_cluster3>() {
-            //                         @Override
-            //                         public long extractTimestamp(train_cluster3 element, long recordTimestamp) {
-            //                             return element.getTrip_duration(); // 指定EventTime对应的字段
-            //                         }
-            //                     })
-            //     );
-            //     env.setParallelism(threads_flink);
-            //     tenv.fromDataStream(orderDS);
-            //     break;
-            // }
+                    @Override
+                    public void cancel() {
+                        isRunning = false;
+                    }
+                });
+                tenv = StreamTableEnvironment.create(env);
+                DataStream<train_cluster3> watermakerDS = orderDS.assignTimestampsAndWatermarks(
+                        WatermarkStrategy.<train_cluster3>forBoundedOutOfOrderness(Duration.ofDays(7))
+                                .withTimestampAssigner(new SerializableTimestampAssigner<train_cluster3>() {
+                                    @Override
+                                    public long extractTimestamp(train_cluster3 element, long recordTimestamp) {
+                                        return element.getTrip_duration(); // 指定EventTime对应的字段
+                                    }
+                                })
+                );
+                env.setParallelism(threads_flink);
+                tenv.fromDataStream(orderDS);
+                break;
+            }
             case 4: {
                 threads_flink = 5;
                 column_numnber = 123;
