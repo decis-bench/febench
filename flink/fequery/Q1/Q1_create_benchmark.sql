@@ -1,0 +1,1 @@
+CREATE TABLE train (Id Integer,Province_State String, Country_Region String, DateDate timestamp, ConfirmedCases double, Fatalities double) WITH ('connector' = 'jdbc','url' = 'jdbc:mysql://localhost:3306/covid','table-name' = 'train','username'='root','password'='db10204','driver'='com.mysql.cj.jdbc.Driver','lookup.cache.ttl'='20s','lookup.cache.max-rows'='100')
