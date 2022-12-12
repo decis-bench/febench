@@ -90,8 +90,8 @@ Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 2. In Step 5, indicate the <dataset_ID> when running the *compile_test.sh* script; and no parameter when running *test.sh*, e.g., 
 
 ```bash
-./compile_test.sh 3 // compile and run the task3 test
-./test.sh // rerun the task3 test
+./compile_test.sh 3 // compile and run the test of task3
+./test.sh // rerun the test of task3
 ```
 
 
