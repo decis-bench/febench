@@ -49,12 +49,12 @@ DATASET_NUM=6
 HOST=127.0.0.1:xxxx
 ...
 
-DATABASE=C3
-DEPLOY_NAME=C3_service
-DATA_FOLDER_C3=./dataset/C3/
-DEPLOY_SQL_C3=./fequery/C3/deploy.sql
-CREATE_SQL_C3=./fequery/C3/create.sql
-DROP_SQL_C3=./fequery/C3/drop.sql
+DATABASE_C3=q3_db
+DEPLOY_NAME_C3=q3_db_service
+DATA_FOLDER_C3=../dataset/Q3/
+DEPLOY_SQL_C3=./fequery/Q3/Q3_deploy_benchmark.sql
+CREATE_SQL_C3=./fequery/Q3/Q3_create_benchmark.sql
+DROP_SQL_C3=./fequery/Q3/Q3_drop_benchmark.sql
 ...
 
   ```
@@ -85,15 +85,13 @@ Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 
 1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB) to persist the Flink table data.
 
-2. In Step 4, the configuration file is at *./src/main/resources/conf.properties*
-
 2. In Step 5, indicate the <dataset_ID> when running the *compile_test.sh* script; and no parameter when running *test.sh*, e.g., 
 
 ```bash
 ./compile_test.sh 3 // compile and run the test of task3
 ./test.sh // rerun the test of task3
 ```
-
+3. You need to rerun compile_test.sh if you modify the conf.properties. This is not needed for *OpenMLDB Evaluation*.
 
 ![image](./imgs/flink-jmh.png)
 
