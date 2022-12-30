@@ -96,4 +96,4 @@ Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 ![image](./imgs/flink-jmh.png)
 
 ## ✉️ Contributing
-FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Reach out to Mian Lu (lumian@4paradigm.com) if you would like to get involved or contribute!
+FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Please leave your comments in the [Issues](https://github.com/decis-bench/febench/issues) if you would like to get involved or contribute!
