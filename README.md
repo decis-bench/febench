@@ -8,6 +8,9 @@ A Benchmark for Real-Time Relational Data Feature Extraction.
 | [**Contributing**](#%EF%B8%8F-contributing)
 </div>
 
+## Community
+
+![](imgs/logos.png)
 
 ## 💡 What is FEBench?
 
