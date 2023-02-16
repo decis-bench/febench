@@ -4,19 +4,19 @@
 
     Server：m7-model-test03
 
-    Client:    m7-model-test04
+    Client: m7-model-test04
 
 ### Experimental Results
 
 ![image](../imgs/ai-pipeline-1.png)
 
-#### PredictService (online)
+#### Predict Service (online)
 
 ![image](../imgs/ai-pipline-predict.png)
 
 ![image](../imgs/ai-pipline-fe.png)
 
-#### PredictService (batch)
+#### Predict Service (batch)
 
 
 ![image](../imgs/ai-pipeline-batch.png)
