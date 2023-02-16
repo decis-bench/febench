@@ -10,7 +10,14 @@ A Benchmark for Real-Time Relational Data Feature Extraction.
 
 ## Community
 
-![](imgs/logos.png)
+We deeply appreciate the invaluable effort contributed by our dedicated team of developers, supportive users, and esteemed industry partners.
+
+- [Intel](https://www.intel.com/)
+- [National University of Singapore](https://nus.edu.sg/)
+- [Tsinghua University](https://www.tsinghua.edu.cn/en/)
+- [4Paradigm](https://en.4paradigm.com/index.html)
+- [OpenMLDB](https://github.com/4paradigm/OpenMLDB)
+- [Flink](https://flink.apache.org/)
 
 ## 💡 What is FEBench?
 
