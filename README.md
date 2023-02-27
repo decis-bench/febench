@@ -8,6 +8,16 @@ A Benchmark for Real-Time Relational Data Feature Extraction.
 | [**Contributing**](#%EF%B8%8F-contributing)
 </div>
 
+## Community
+
+We deeply appreciate the invaluable effort contributed by our dedicated team of developers, supportive users, and esteemed industry partners.
+
+- [Intel](https://www.intel.com/)
+- [National University of Singapore](https://nus.edu.sg/)
+- [Tsinghua University](https://www.tsinghua.edu.cn/en/)
+- [4Paradigm](https://en.4paradigm.com/index.html)
+- [OpenMLDB](https://github.com/4paradigm/OpenMLDB)
+- [Apache Flink](https://flink.apache.org/)
 
 ## 💡 What is FEBench?
 
@@ -96,4 +106,4 @@ Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 ![image](./imgs/flink-jmh.png)
 
 ## ✉️ Contributing
-FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Reach out to Mian Lu (lumian@4paradigm.com) if you would like to get involved or contribute!
+FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Please leave your comments in the [Issues](https://github.com/decis-bench/febench/issues) if you would like to get involved or contribute!
