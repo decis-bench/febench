@@ -49,7 +49,7 @@ import java.io.File;
 
 @BenchmarkMode(Mode.SampleTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@State(Scope.Benchmark)
+@State(Scope.Thread)
 
 
 
@@ -626,14 +626,18 @@ public class OpenMLDBPerfBenchmark_Cluster {
          
     }
 
-    @Setup
-    public void initEnv() {
-        
 
+    public void initEnv_manual() {
+                
     	drop();
         create();
         deploy();
         load(datafolder);
+
+    }
+
+    @Setup
+    public void initEnv() {
 
         try {
             Thread.sleep(1000);
@@ -769,6 +773,10 @@ public class OpenMLDBPerfBenchmark_Cluster {
     public static void main(String[] args) {
         int dataSetID = BenchmarkConfig.DATASET_ID;
         int dataSetNUM = BenchmarkConfig.DATASET_NUM;
+
+        OpenMLDBPerfBenchmark_Cluster init_cluster = new OpenMLDBPerfBenchmark_Cluster();
+        init_cluster.initEnv_manual();
+
         if(dataSetID > dataSetNUM || dataSetID < 0) {
             System.out.println("Err! Invalid dataSetID");
             return;
