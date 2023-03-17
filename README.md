@@ -30,7 +30,7 @@ See the detailed [technical report](https://github.com/decis-bench/febench/blob/
 
 ## Data and Query
 
-We have analysed the schema of our datasets and characteristics of the querys. See the detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/paper/tableSchema.pdf) and [query analysis](https://github.com/decis-bench/febench/blob/main/paper/queryPlan.pdf)
+We have analysed the schema of our datasets and characteristics of the querys. See the detailed [data schema analysis](https://github.com/decis-bench/febench/blob/newreport/report/tableSchema.pdf) and [query analysis](https://github.com/decis-bench/febench/blob/newreport/report/queryPlan.pdf)
 
 ## ⚡️ Quickstart
 
