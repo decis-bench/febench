@@ -106,7 +106,7 @@ public class BenchmarkConfig {
         sdkOption.setEnableDebug(enableDebug);
         sdkOption.setRequestTimeout(1000000);
         sdkOption.setMaxSqlCacheSize(500);
-        sdkOption.setEnableDebug(true);
+        // sdkOption.setEnableDebug(true);
 	option = sdkOption;
         try {
             executor = new SqlClusterExecutor(option);

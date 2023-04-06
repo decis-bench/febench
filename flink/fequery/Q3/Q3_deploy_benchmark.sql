@@ -36,9 +36,9 @@ select '1' as Q3_Col31_1,
     product_item_Q3_Col14_multi_last_value_39,
     product_item_Q3_Col15_multi_last_value_40,
     shipping_Q3_Col3_Q3_Col54_multi_last_value_41,
-    shipping_Q3_Col3_rfc_price_end_dt_multi_last_value_42,
-    shipping_Q3_Col3_rfc_price_start_dt_multi_last_value_43,
-    shipping_Q3_Col3_shipping_dt_multi_last_value_44,
+    shipping_Q3_Col3_Q3_Col68_multi_last_value_42,
+    shipping_Q3_Col3_Q3_Col67_multi_last_value_43,
+    shipping_Q3_Col3_Q3_Col66_multi_last_value_44,
     Q3_Col31_4,
     order_cancel_return_Q3_Col4_multi_avg_3,
     Q3_Col31_5,
@@ -135,9 +135,9 @@ select
     `product_item_Q3_Col6__Q3_Col32_0s_1d`.`Q3_Col14` as product_item_Q3_Col14_multi_last_value_39,
     `product_item_Q3_Col6__Q3_Col32_0s_1d`.`Q3_Col15` as product_item_Q3_Col15_multi_last_value_40,
     `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`Q3_Col54` as shipping_Q3_Col3_Q3_Col54_multi_last_value_41,
-    `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`rfc_price_end_dt` as shipping_Q3_Col3_rfc_price_end_dt_multi_last_value_42,
-    `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`rfc_price_start_dt` as shipping_Q3_Col3_rfc_price_start_dt_multi_last_value_43,
-    `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`shipping_dt` as shipping_Q3_Col3_shipping_dt_multi_last_value_44
+    `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`Q3_Col68` as shipping_Q3_Col3_Q3_Col68_multi_last_value_42,
+    `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`Q3_Col67` as shipping_Q3_Col3_Q3_Col67_multi_last_value_43,
+    `shipping_Q3_Col3_Q3_Col3__Q3_Col32_0s_1d`.`Q3_Col66` as shipping_Q3_Col3_Q3_Col66_multi_last_value_44
 from
     `train`
     join `feedback` as `feedback_Q3_Col31` on `train`.`Q3_Col31` = `feedback_Q3_Col31`.`Q3_Col31`
