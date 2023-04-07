@@ -19,6 +19,7 @@ package com._4paradigm.openmldb.benchmark;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 //import org.apache.hadoop.fs.Path;
 //import org.apache.parquet.hadoop.ParquetReader;
@@ -41,6 +42,55 @@ public class Util {
             return false;
         }
         return true;
+    }
+    // Only for load
+    public static boolean executeSQL_block(String sql, SqlExecutor executor) {
+        java.sql.Statement state = executor.getStatement();
+        try {
+            boolean ret = state.execute(sql);
+            // check status
+            ResultSet res = state.getResultSet();
+            res.next();
+            System.out.println("[INFO LOG]:\n" + res.getString(1));
+            String jobID = extractJobID(res.getString(1));
+            System.out.println("[INFO LOG]:" + jobID);
+            boolean retOfShow = state.execute("SHOW JOB " + jobID);
+            ResultSet resOfShow = state.getResultSet();
+            resOfShow.next();
+            while(!resOfShow.getString(3).toLowerCase().equals("finished") &&
+                !resOfShow.getString(3).toLowerCase().equals("lost") &&
+                !resOfShow.getString(3).toLowerCase().equals("killed") &&
+                !resOfShow.getString(3).toLowerCase().equals("failed")) {
+                System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
+                resOfShow.close();
+                TimeUnit.SECONDS.sleep(30);
+                retOfShow = state.execute("SHOW JOB " + jobID);
+                resOfShow = state.getResultSet();
+                resOfShow.next();
+            }
+            System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
+            resOfShow.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private static String extractJobID(String result) {
+        String ret = "";
+        boolean start = false;
+        for(int i = 0; i < result.length(); ++i) {
+            if(result.charAt(i) <= '9' && result.charAt(i) >= '0') {
+                start = true;
+                ret += result.charAt(i);
+            }
+            else if(start){
+                break;
+            }
+        }
+        return ret;
     }
 
     public static String genDDL(String name, int indexNum) {

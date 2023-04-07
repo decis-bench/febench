@@ -181,6 +181,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 break;
             }
             case 2: {
+                load2(folderPath);
                 break;
             }
             case 3: {
@@ -202,58 +203,49 @@ public class OpenMLDBPerfBenchmark_Cluster {
         //load benchmark
         try {
             Util.executeSQL("SET @@execute_mode='online';", executor);
-            String loadDataSQL = "LOAD DATA INFILE '"+folderPath + "benchmark/part-00000-09141199-5313-4e53-a069-1595b8141c50-c000.snappy.parquet' INTO TABLE benchmark options(format='parquet', header=true, mode='append');";
+            String loadDataSQL = "LOAD DATA INFILE '"+folderPath + "benchmark' INTO TABLE benchmark options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load test
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "test/part-00000-6800db8e-660c-4fd3-8773-7ed61bdd1990-c000.snappy.parquet' INTO TABLE test options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "test' INTO TABLE test options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load windforecasts_wf1
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf1/part-00000-301ca6ad-be67-4b79-921d-ba067edc82b8-c000.snappy.parquet' INTO TABLE windforecasts_wf1 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf1' INTO TABLE windforecasts_wf1 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load windforecasts_wf2
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf2/part-00000-29f78c7a-68ff-499d-8fc4-0b4df845d9a0-c000.snappy.parquet' INTO TABLE windforecasts_wf2 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf2' INTO TABLE windforecasts_wf2 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load windforecasts_wf3
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf3/part-00000-216c43ce-bd7e-45fb-8ee2-dc40a4de6b65-c000.snappy.parquet' INTO TABLE windforecasts_wf3 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf3' INTO TABLE windforecasts_wf3 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load windforecasts_wf4
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf4/part-00000-a7561bca-bf9c-4300-b510-71b39a002b57-c000.snappy.parquet' INTO TABLE windforecasts_wf4 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf4' INTO TABLE windforecasts_wf4 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load windforecasts_wf5 
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf5/part-00000-8fa84e21-7ccb-426a-ba6a-72b68c7f2587-c000.snappy.parquet' INTO TABLE windforecasts_wf5 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf5' INTO TABLE windforecasts_wf5 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load windforecasts_wf6
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf6/part-00000-f6915211-462d-4158-807c-2730b885814e-c000.snappy.parquet' INTO TABLE windforecasts_wf6 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf6' INTO TABLE windforecasts_wf6 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
-            
+            Util.executeSQL_block(loadDataSQL, executor);
+
             //load windforecasts_wf7
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf7/part-00000-4ec2b13d-71d1-4838-afec-cb94abf0a66a-c000.snappy.parquet' INTO TABLE windforecasts_wf7 options(format='parquet', header=true, mode='append');";
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf7' INTO TABLE windforecasts_wf7 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
-            Util.executeSQL(loadDataSQL, executor);
-            TimeUnit.SECONDS.sleep(20);
+            Util.executeSQL_block(loadDataSQL, executor);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -266,61 +258,32 @@ public class OpenMLDBPerfBenchmark_Cluster {
             Util.executeSQL("SET @@execute_mode='online';", executor);
             String loadDataSQL;
             //load product_sku
-            for(int i=0; i<=1; ++i){
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "product_sku/part-r-0000" + i + "-5d80c7f0-f3ce-4552-bf82-8b128a8dfb37.gz.parquet' INTO TABLE product_sku options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "product_sku' INTO TABLE product_sku options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+
             //load product_item 
-            for(int i=0; i<=7; ++i){
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "product_item/part-r-0000" + i + "-f8381bc4-010b-4db3-9f1b-d62f3a878836.gz.parquet' INTO TABLE product_item options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "product_item' INTO TABLE product_item options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load order_cancel_return
-            for(int i=0; i<=7; ++i){
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_cancel_return/part-r-0000" + i + "-5b6619e7-abcd-475d-8dce-bdda28e86d6e.gz.parquet' INTO TABLE order_cancel_return options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_cancel_return' INTO TABLE order_cancel_return options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             //load shipping_sku 
-            for(int i=0; i<=15; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "shipping_sku/part-r-0000" + i + "-b24c768b-44f1-4386-a289-c804181ef2b6.gz.parquet' INTO TABLE shipping_sku options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "shipping_sku/part-r-000" + i + "-b24c768b-44f1-4386-a289-c804181ef2b6.gz.parquet' INTO TABLE shipping_sku options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "shipping_sku' INTO TABLE shipping_sku options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             //load order_sales
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales/part-r-0000" + i + "-5b4c6f41-dead-4e43-98e5-335134b9a6da.gz.parquet' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<35){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales/part-r-000" + i + "-5b4c6f41-dead-4e43-98e5-335134b9a6da.gz.parquet' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-                }else if(i>=36 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales/part-r-000" + i + "-5b4c6f41-dead-4e43-98e5-335134b9a6da.gz.parquet' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales/part-r-00" + i + "-5b4c6f41-dead-4e43-98e5-335134b9a6da.gz.parquet' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load feedback
-            for(int i=0; i<=7; ++i){
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback/part-r-0000" + i + "-320a9845-a423-4a12-b6dc-876add63cbe1.gz.parquet' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -334,84 +297,46 @@ public class OpenMLDBPerfBenchmark_Cluster {
             String loadDataSQL;
             
             //load action
-            int[] fs_number=new int[]{0, 1, 3, 4, 5}; 
-            int i;
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "action/part-0000" + i + "-a741e234-1635-4203-ac69-1643ded9c151-c000.snappy.parquet' INTO TABLE action options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "action' INTO TABLE action options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             //load bo_POS_CASH_balance
-            fs_number=new int[]{0, 2, 6}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_POS_CASH_balance/part-0000" + i + "-dc1fbd8c-0bb3-4621-a757-ea86d9d1ffca-c000.snappy.parquet' INTO TABLE bo_POS_CASH_balance options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_POS_CASH_balance' INTO TABLE bo_POS_CASH_balance options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load bo_bureau 
-            fs_number=new int[]{0, 1, 4}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_bureau/part-0000" + i + "-cf90c26e-1d76-4bbd-8c23-f4dc8bafbcbd-c000.snappy.parquet' INTO TABLE bo_bureau options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_bureau' INTO TABLE bo_bureau options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load bo_bureau_balance
-            fs_number=new int[]{0, 2, 6}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_bureau_balance/part-0000" + i + "-337ef7ee-5db5-4663-8692-fe26b645893f-c000.snappy.parquet' INTO TABLE bo_bureau_balance options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_bureau_balance' INTO TABLE bo_bureau_balance options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             
             //load bo_credit_card_balance
-            fs_number=new int[]{0, 2, 6}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_credit_card_balance/part-0000" + i + "-b12dfb34-7570-446e-b196-a391c5e6b14e-c000.snappy.parquet' INTO TABLE bo_credit_card_balance options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_credit_card_balance' INTO TABLE bo_credit_card_balance options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load bo_installment_payment
-            fs_number=new int[]{0, 2, 6}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_installment_payment/part-0000" + i + "-1828b60c-2436-4598-afca-2278fa08c55d-c000.snappy.parquet' INTO TABLE bo_installment_payment options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_installment_payment' INTO TABLE bo_installment_payment options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             //load bo_part
-            fs_number=new int[]{0, 1}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_part/part-0000" + i + "-927dc42c-1292-444a-91af-19438d200c78-c000.snappy.parquet' INTO TABLE bo_part options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_part' INTO TABLE bo_part options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load bo_previous_applicatio
-            //fs_number=new int[]{0, 1, 4}; 
-            fs_number=new int[]{1, 4}; 
-            for(int j=0; j<fs_number.length; ++j){
-                i=fs_number[j];
-                loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_previous_applicatio/part-0000" + i + "-286cd115-e8e2-45e7-abc7-454f276340ad-c000.snappy.parquet' INTO TABLE bo_previous_applicatio options(format='parquet', header=true, mode='append');";
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(30);
-            }
+            
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_previous_applicatio' INTO TABLE bo_previous_applicatio options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -426,129 +351,50 @@ public class OpenMLDBPerfBenchmark_Cluster {
             Util.executeSQL("SET @@execute_mode='online';", executor);
             String loadDataSQL;
 	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback/part-0000" + i + "-bf952d4c-94b4-4739-b738-24d3a1072548-c000.snappy.parquet' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback/part-000" + i + "-bf952d4c-94b4-4739-b738-24d3a1072548-c000.snappy.parquet' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback/part-00" + i + "-bf952d4c-94b4-4739-b738-24d3a1072548-c000.snappy.parquet' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b/part-0000" + i + "-5a8f1a6a-9849-4bf0-b79f-9f1cba755adf-c000.snappy.parquet' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b/part-000" + i + "-5a8f1a6a-9849-4bf0-b79f-9f1cba755adf-c000.snappy.parquet' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b/part-00" + i + "-5a8f1a6a-9849-4bf0-b79f-9f1cba755adf-c000.snappy.parquet' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+	
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7/part-0000" + i + "-94521b57-9982-447c-a515-358b4836e2a0-c000.snappy.parquet' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7/part-000" + i + "-94521b57-9982-447c-a515-358b4836e2a0-c000.snappy.parquet' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7/part-00" + i + "-94521b57-9982-447c-a515-358b4836e2a0-c000.snappy.parquet' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6/part-0000" + i + "-9c5245e4-33bb-4830-9fcb-d78375576fbc-c000.snappy.parquet' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6/part-000" + i + "-9c5245e4-33bb-4830-9fcb-d78375576fbc-c000.snappy.parquet' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6/part-00" + i + "-9c5245e4-33bb-4830-9fcb-d78375576fbc-c000.snappy.parquet' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5/part-0000" + i + "-21b0818d-e296-45b1-b366-0a173128dd16-c000.snappy.parquet' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5/part-000" + i + "-21b0818d-e296-45b1-b366-0a173128dd16-c000.snappy.parquet' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5/part-00" + i + "-21b0818d-e296-45b1-b366-0a173128dd16-c000.snappy.parquet' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4/part-0000" + i + "-322e9046-d2df-4613-9c3a-464e40c535ca-c000.snappy.parquet' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4/part-000" + i + "-322e9046-d2df-4613-9c3a-464e40c535ca-c000.snappy.parquet' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4/part-00" + i + "-322e9046-d2df-4613-9c3a-464e40c535ca-c000.snappy.parquet' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3/part-0000" + i + "-a44be76e-db15-45c4-bee5-d57730c8d515-c000.snappy.parquet' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3/part-000" + i + "-a44be76e-db15-45c4-bee5-d57730c8d515-c000.snappy.parquet' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3/part-00" + i + "-a44be76e-db15-45c4-bee5-d57730c8d515-c000.snappy.parquet' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
 
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2/part-0000" + i + "-a32b92f6-e2f7-41f8-93b1-d38c2bbf8159-c000.snappy.parquet' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2/part-000" + i + "-a32b92f6-e2f7-41f8-93b1-d38c2bbf8159-c000.snappy.parquet' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2/part-00" + i + "-a32b92f6-e2f7-41f8-93b1-d38c2bbf8159-c000.snappy.parquet' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
 
-	    
-            for(int i=0; i<=199; ++i){
-                if(i<10){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1/part-0000" + i + "-7ca199f5-260c-4ad6-82d9-d118fc0a8558-c000.snappy.parquet' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-                }else if(i>=10 && i<100){
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1/part-000" + i + "-7ca199f5-260c-4ad6-82d9-d118fc0a8558-c000.snappy.parquet' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-                }else{
-                    loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1/part-00" + i + "-7ca199f5-260c-4ad6-82d9-d118fc0a8558-c000.snappy.parquet' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-                }
-                System.out.println(loadDataSQL);
-                Util.executeSQL(loadDataSQL, executor);
-                TimeUnit.SECONDS.sleep(20);
-            }
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
+
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            
 
         } catch (Exception e) {
             e.printStackTrace();
