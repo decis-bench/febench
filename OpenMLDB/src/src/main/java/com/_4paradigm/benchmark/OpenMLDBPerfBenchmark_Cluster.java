@@ -279,6 +279,18 @@ public class OpenMLDBPerfBenchmark_Cluster {
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_1' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_2' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_3' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_4' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
             //load feedback
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
@@ -354,9 +366,33 @@ public class OpenMLDBPerfBenchmark_Cluster {
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_1' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_2' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_3' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_4' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
 
 	
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_1' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_2' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_3' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_4' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
 
@@ -364,9 +400,33 @@ public class OpenMLDBPerfBenchmark_Cluster {
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_1' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_2' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_3' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_4' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             
 
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_1' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_2' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_3' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_4' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
             
@@ -374,9 +434,33 @@ public class OpenMLDBPerfBenchmark_Cluster {
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_1' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_2' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_3' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_4' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             
 
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_1' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_2' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_3' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_4' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
             
@@ -384,14 +468,50 @@ public class OpenMLDBPerfBenchmark_Cluster {
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_1' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_2' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_3' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_4' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             
 
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_1' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_2' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_3' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_4' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
             
 
             loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_1' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_2' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_3' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
+            System.out.println(loadDataSQL);
+            Util.executeSQL_block(loadDataSQL, executor);
+            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_4' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
             System.out.println(loadDataSQL);
             Util.executeSQL_block(loadDataSQL, executor);
             
