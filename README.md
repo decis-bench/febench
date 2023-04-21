@@ -48,17 +48,18 @@ Step 1: Clone the repository
 Step 2: Download the datasets and move the data files to the dataset directory
 
   ```sh
-  wget -r -np -R "index.html*"  http://43.138.115.238/download/febench/data/; cp -r <dataset directory> ./dataset
+  wget -r -np -R "index.html*"  http://43.138.115.238/download/data/ -P ./dataset
   ```
 
 > Note the data files are in parquet format.
 
-Step 3: Start the cluster and enter the *OpenMLDB* folder
+Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the *OpenMLDB* folder
+> Please note that the default settings for `spark.driver.memory` and `spark.executor.memory` may not be sufficient. You may need to increase them by referring to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) if you encounter a `java.lang.OutOfMemoryError: Java heap space` error.
 
-Step 4: Update the settings (the OpenMLDB cluster, data/query locations) in the configuration file (./conf/conf.properties)
+Step 4: Create a file named `conf.properties` in the `./conf` directory and update the OpenMLDB cluster and the locations of data and queries in the configuration file `./conf/conf.properties`
 
   ```sh
-DATASET_ID=5  
+DATASET_ID=5   # set by compile_test.sh/test.sh
 DATASET_NUM=6
 ...
 
@@ -67,10 +68,10 @@ HOST=127.0.0.1:xxxx
 
 DATABASE_C3=q3_db
 DEPLOY_NAME_C3=q3_db_service
-DATA_FOLDER_C3=../dataset/Q3/
-DEPLOY_SQL_C3=./fequery/Q3/Q3_deploy_benchmark.sql
-CREATE_SQL_C3=./fequery/Q3/Q3_create_benchmark.sql
-DROP_SQL_C3=./fequery/Q3/Q3_drop_benchmark.sql
+DATA_FOLDER_C3=<absolute path to project>/dataset/Q3/
+DEPLOY_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
+CREATE_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
+DROP_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
 ...
 
   ```

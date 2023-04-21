@@ -53,7 +53,7 @@ import java.io.File;
 
 
 
-@Threads(1)
+@Threads(20)
 @Fork(value = 1, jvmArgs = {"-Xms8G", "-Xmx8G"})
 @Warmup(iterations = 2)
 @Measurement(iterations = 5, time = 60)
@@ -631,16 +631,16 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 String filePath;
                 for(int i=0; i<40; ++i){
                     if(i < 10){
-                        filePath = folderPath + "part-0000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
+                        filePath = folderPath + "train/part-0000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
                     }else{
-                        filePath = folderPath + "part-000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
+                        filePath = folderPath + "train/part-000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
                     }
                     readParquet(filePath);
                 }
                 break;
             }
             case 1: {
-                String filePath = folderPath + "part-00000-dc35485a-f7fc-4279-8343-162e08b0c42b-c000.snappy.parquet";
+                String filePath = folderPath + "train/part-00000-dc35485a-f7fc-4279-8343-162e08b0c42b-c000.snappy.parquet";
                 readParquet(filePath);
                 break;
             }

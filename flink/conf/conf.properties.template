@@ -1,0 +1,40 @@
+ZK_CLUSTER=127.0.0.1:2181
+ZK_PATH=/openmldb
+
+DATASET_ID=3
+DATASET_NUM=6
+
+WINDOW_NUM=2
+WINDOW_SIZE=1000
+JOIN_NUM=2
+
+PK_NUM=10
+PK_MAX=0
+TS_BASE=1652321552000
+PK_BASE=1000000
+
+
+DATA_FOLDER_C0=<absolute path to project>/dataset/Q0/
+CREATE_SQL_C0=<absolute path to project>/flink/fequery/Q0/Q0_create_benchmark.sql
+DEPLOY_SQL_C0=<absolute path to project>/flink/fequery/Q0/Q0_deploy_benchmark.sql
+
+DATA_FOLDER_C1=<absolute path to project>/dataset/Q1/
+CREATE_SQL_C1=<absolute path to project>/flink/fequery/Q1/Q1_create_benchmark.sql
+DEPLOY_SQL_C1=<absolute path to project>/flink/fequery/Q1/Q1_deploy_benchmark.sql
+
+DATA_FOLDER_C2=<absolute path to project>/dataset/Q2/
+CREATE_SQL_C2=<absolute path to project>/flink/fequery/Q2/Q2_create_benchmark.sql
+DEPLOY_SQL_C2=<absolute path to project>/flink/fequery/Q2/Q2_deploy_benchmark.sql
+
+DATA_FOLDER_C3=<absolute path to project>/dataset/Q3/
+CREATE_SQL_C3=<absolute path to project>/flink/fequery/Q3/Q3_create_benchmark.sql
+DEPLOY_SQL_C3=<absolute path to project>/flink/fequery/Q3/Q3_deploy_benchmark.sql
+
+DATA_FOLDER_C4=<absolute path to project>/dataset/Q4/
+CREATE_SQL_C4=<absolute path to project>/flink/fequery/Q4/Q4_create_benchmark.sql
+DEPLOY_SQL_C4=<absolute path to project>/flink/fequery/Q4/Q4_deploy_benchmark.sql
+
+DATA_FOLDER_C5=<absolute path to project>/dataset/Q5/
+CREATE_SQL_C5=<absolute path to project>/flink/fequery/Q5/Q5_create_benchmark.sql
+DEPLOY_SQL_C5=<absolute path to project>/flink/fequery/Q5/Q5_deploy_benchmark.sql
+

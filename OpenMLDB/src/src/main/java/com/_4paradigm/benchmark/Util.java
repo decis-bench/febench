@@ -54,7 +54,7 @@ public class Util {
             System.out.println("[INFO LOG]:\n" + res.getString(1));
             String jobID = extractJobID(res.getString(1));
             System.out.println("[INFO LOG]:" + jobID);
-            boolean retOfShow = state.execute("SHOW JOB " + jobID);
+            boolean retOfShow = state.execute("SHOW JOB " + jobID + ";");
             ResultSet resOfShow = state.getResultSet();
             resOfShow.next();
             while(!resOfShow.getString(3).toLowerCase().equals("finished") &&
@@ -64,10 +64,13 @@ public class Util {
                 System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
                 resOfShow.close();
                 TimeUnit.SECONDS.sleep(30);
-                retOfShow = state.execute("SHOW JOB " + jobID);
+                retOfShow = state.execute("SHOW JOB " + jobID + ";");
                 resOfShow = state.getResultSet();
                 resOfShow.next();
             }
+            // if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
+            //     throw new Exception
+            // }
             System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
             resOfShow.close();
 

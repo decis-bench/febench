@@ -1,2 +1,3 @@
-dataset
+dataset/*
 OpenMLDB/conf/conf.properties
+flink/conf/conf.properties
