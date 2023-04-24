@@ -68,9 +68,9 @@ public class Util {
                 resOfShow = state.getResultSet();
                 resOfShow.next();
             }
-            // if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
-            //     throw new Exception
-            // }
+            if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
+                throw new Exception("[ERROR]: loading failed, please check the job log");
+            }
             System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
             resOfShow.close();
 
