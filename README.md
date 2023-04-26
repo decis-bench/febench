@@ -56,7 +56,13 @@ Step 2: Download the datasets and move the data files to the dataset directory
 Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the *OpenMLDB* folder
 > Please note that the default settings for `spark.driver.memory` and `spark.executor.memory` may not be sufficient. You may need to increase them by referring to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) if you encounter a `java.lang.OutOfMemoryError: Java heap space` error.
 
-Step 4: Create a file named `conf.properties` in the `./conf` directory and update the OpenMLDB cluster and the locations of data and queries in the configuration file `./conf/conf.properties`
+Step 4: Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
+
+```sh
+cp ./conf/conf.properties.template ./conf/conf.properties
+vim ./conf/conf.properties
+```
+
 
   ```sh
 DATASET_ID=5   # set by compile_test.sh/test.sh
@@ -75,8 +81,6 @@ DROP_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
 ...
 
   ```
-
-> Note you can start a docker for ease of environment management.
 
 
 Step 5: Run the testing script

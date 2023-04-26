@@ -18,6 +18,8 @@ package com._4paradigm.openmldb.benchmark;
 
 import java.sql.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -49,8 +51,6 @@ public class Util {
     }
     // Only for load
     public static boolean executeSQL_block(String sql, SqlExecutor executor) {
-
-
         System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
@@ -58,31 +58,40 @@ public class Util {
             // check status
             ResultSet res = state.getResultSet();
             res.next();
+            // print the job info
             System.out.println("[INFO LOG]:\n" + res.getString(1));
             String jobID = extractJobID(res.getString(1));
-            System.out.println("[INFO LOG]:" + jobID);
             boolean retOfShow = state.execute("SHOW JOB " + jobID + ";");
             ResultSet resOfShow = state.getResultSet();
             resOfShow.next();
+            
+            // Format the date and time using a formatter
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            
             while(!resOfShow.getString(3).toLowerCase().equals("finished") &&
                 !resOfShow.getString(3).toLowerCase().equals("lost") &&
                 !resOfShow.getString(3).toLowerCase().equals("killed") &&
                 !resOfShow.getString(3).toLowerCase().equals("failed")) {
-                System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
+                // heartbeat
+                System.out.println("[HEART BEAT]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
+
                 resOfShow.close();
                 TimeUnit.SECONDS.sleep(30);
                 retOfShow = state.execute("SHOW JOB " + jobID + ";");
                 resOfShow = state.getResultSet();
                 resOfShow.next();
             }
+            System.out.println("[INFO LOG]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
+
             if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
+                resOfShow.close();
                 throw new Exception("[ERROR]: loading failed with final state '"+ resOfShow.getString(3) +"', please check the job log");
             }
-            System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
-            resOfShow.close();
-
+            else {
+                resOfShow.close();
+            }
         } catch (Exception e) {
-            throw new RuntimeException("Test abort because the loading phase failed",e);
+            throw new RuntimeException("Test abort because the loading phase failed", e);
         }
         return true;
     }

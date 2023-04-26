@@ -501,9 +501,9 @@ public class flink_benchmark {
                 tenv.executeSql(line);
                 builder.append(line).append("\n");
             }
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+        } catch (Exception e){
+            throw new RuntimeException("Test abort because creating database failed", e);
+        }
         System.out.println(builder.toString());
     }
 
@@ -518,9 +518,9 @@ public class flink_benchmark {
             while ((line = reader.readLine()) != null) {
                 builder.append(line).append("\n");
             }
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+        } catch (Exception e){
+            throw new RuntimeException("Test abort because deployment failed", e);
+        }
         sql_query = builder.toString();
         System.out.println(sql_query);
         //System.out.println("query!!!");
