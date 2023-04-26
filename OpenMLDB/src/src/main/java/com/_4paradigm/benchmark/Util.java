@@ -31,20 +31,27 @@ import org.apache.avro.Schema.Field;
 import com._4paradigm.openmldb.proto.Type;
 import com._4paradigm.openmldb.sdk.SqlExecutor;
 
+import org.slf4j.*;
+import org.apache.log4j.PropertyConfigurator;
+
 public class Util {
 
+
     public static boolean executeSQL(String sql, SqlExecutor executor) {
+        System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
             boolean ret = state.execute(sql);
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("", e);
         }
         return true;
     }
     // Only for load
     public static boolean executeSQL_block(String sql, SqlExecutor executor) {
+
+
+        System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
             boolean ret = state.execute(sql);
@@ -69,14 +76,13 @@ public class Util {
                 resOfShow.next();
             }
             if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
-                throw new Exception("[ERROR]: loading failed, please check the job log");
+                throw new Exception("[ERROR]: loading failed with final state '"+ resOfShow.getString(3) +"', please check the job log");
             }
             System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
             resOfShow.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Test abort because the loading phase failed",e);
         }
         return true;
     }

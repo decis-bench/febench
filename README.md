@@ -48,7 +48,7 @@ Step 1: Clone the repository
 Step 2: Download the datasets and move the data files to the dataset directory
 
   ```sh
-  wget -r -np -R "index.html*"  http://43.138.115.238/download/data/ -P ./dataset
+  wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P ./dataset
   ```
 
 > Note the data files are in parquet format.
