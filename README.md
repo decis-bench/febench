@@ -59,8 +59,8 @@ Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_depl
 Step 4: Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
 
 ```sh
-cp ./conf/conf.properties.template ./conf/conf.properties
-vim ./conf/conf.properties
+export FEBENCH_ROOT=`pwd`
+sed s#\<path\>#$FEBENCH_ROOT# ./conf/conf.properties.template > ./conf/conf.properties
 ```
 
 
@@ -74,10 +74,10 @@ HOST=127.0.0.1:xxxx
 
 DATABASE_C3=q3_db
 DEPLOY_NAME_C3=q3_db_service
-DATA_FOLDER_C3=<absolute path to project>/dataset/Q3/
-DEPLOY_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
-CREATE_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
-DROP_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
+DATA_FOLDER_C3=<path>/dataset/Q3/
+DEPLOY_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
+CREATE_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
+DROP_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
 ...
 
   ```
