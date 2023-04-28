@@ -184,8 +184,8 @@ public class OpenMLDBPerfBenchmark_Cluster {
     }
 
 
-    public void onlineLoad(String path, String table) {
-        String loadDataSQL = "LOAD DATA INFILE '"+ path + table + "' INTO TABLE " + table + " options(format='parquet', header=true, mode='append');";
+    public void onlineLoad(String path, String file, String table) {
+        String loadDataSQL = "LOAD DATA INFILE '"+ path + '/' + file + "' INTO TABLE " + table + " options(format='parquet', header=true, mode='append');";
         Util.executeSQL_block(loadDataSQL, executor);;
     }
     
@@ -218,20 +218,18 @@ public class OpenMLDBPerfBenchmark_Cluster {
 
     public void load2(String folderPath) {
         try {
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            
-            List<String> tables = new ArrayList<>();
-            tables.add("benchmark");
-            tables.add("test");
-            tables.add("windforecasts_wf1");
-            tables.add("windforecasts_wf2");
-            tables.add("windforecasts_wf3");
-            tables.add("windforecasts_wf4");
-            tables.add("windforecasts_wf5");
-            tables.add("windforecasts_wf6");
-            tables.add("windforecasts_wf7");
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("benchmark", "benchmark");
+            file2tables.put("test", "test");
+            file2tables.put("windforecasts_wf1", "windforecasts_wf1");
+            file2tables.put("windforecasts_wf2", "windforecasts_wf2");
+            file2tables.put("windforecasts_wf3", "windforecasts_wf3");
+            file2tables.put("windforecasts_wf4", "windforecasts_wf4");
+            file2tables.put("windforecasts_wf5", "windforecasts_wf5");
+            file2tables.put("windforecasts_wf6", "windforecasts_wf6");
+            file2tables.put("windforecasts_wf7", "windforecasts_wf7");
 
-            tables.forEach(t -> onlineLoad(folderPath, t));
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
 
         } catch (Exception e) {
             throw new RuntimeException("test abort because the loading phase of Q2 failed", e);
@@ -241,21 +239,19 @@ public class OpenMLDBPerfBenchmark_Cluster {
 
     public void load3(String folderPath) {
         try {
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            
-            List<String> tables = new ArrayList<>();
-            tables.add("product_sku");
-            tables.add("product_item");
-            tables.add("order_cancel_return");
-            tables.add("shipping_sku");
-            tables.add("order_sales");
-            tables.add("order_sales1");
-            tables.add("order_sales2");
-            tables.add("order_sales3");
-            tables.add("order_sales4");
-            tables.add("feedback");
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("product_sku", "product_sku");
+            file2tables.put("product_item", "product_item");
+            file2tables.put("order_cancel_return", "order_cancel_return");
+            file2tables.put("shipping_sku", "shipping_sku");
+            file2tables.put("order_sales", "order_sales");
+            file2tables.put("order_sales_1", "order_sales");
+            file2tables.put("order_sales_2", "order_sales");
+            file2tables.put("order_sales_3", "order_sales");
+            file2tables.put("order_sales_4", "order_sales");
+            file2tables.put("feedback", "feedback");
 
-            tables.forEach(t -> onlineLoad(folderPath, t));
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
 
         } catch (Exception e) {
             throw new RuntimeException("test abort because the loading phase of Q3 failed", e);
@@ -265,20 +261,17 @@ public class OpenMLDBPerfBenchmark_Cluster {
 
     public void load4(String folderPath) {
         try {
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            
-            List<String> tables = new ArrayList<>();
-            tables.add("action");
-            tables.add("bo_POS_CASH_balance");
-            tables.add("bo_bureau");
-            tables.add("bo_bureau_balance");
-            tables.add("bo_credit_card_balance");
-            tables.add("bo_installment_payment");
-            tables.add("bo_part");
-            tables.add("bo_previous_applicatio");
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("action", "action");
+            file2tables.put("bo_POS_CASH_balance", "bo_POS_CASH_balance");
+            file2tables.put("bo_bureau", "bo_bureau");
+            file2tables.put("bo_bureau_balance", "bo_bureau_balance");
+            file2tables.put("bo_credit_card_balance", "bo_credit_card_balance");
+            file2tables.put("bo_installment_payment", "bo_installment_payment");
+            file2tables.put("bo_part", "bo_part");
+            file2tables.put("bo_previous_applicatio", "bo_previous_applicatio");
 
-            tables.forEach(t -> onlineLoad(folderPath, t));
-
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
         } catch (Exception e) {
             throw new RuntimeException("test abort because the loading phase of Q4 failed", e);
         }
@@ -287,56 +280,54 @@ public class OpenMLDBPerfBenchmark_Cluster {
 
     public void load5(String folderPath) {
         try {
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            
-            List<String> tables = new ArrayList<>();
-            tables.add("feedback");
-            tables.add("feedback_1");
-            tables.add("feedback_2");
-            tables.add("feedback_3");
-            tables.add("feedback_4");
-            tables.add("sag_efs_tbproduct_F_b");
-            tables.add("sag_efs_tbproduct_F_b_1");
-            tables.add("sag_efs_tbproduct_F_b_2");
-            tables.add("sag_efs_tbproduct_F_b_3");
-            tables.add("sag_efs_tbproduct_F_b_4");
-            tables.add("CUST_f7");
-            tables.add("CUST_f7_1");
-            tables.add("CUST_f7_2");
-            tables.add("CUST_f7_3");
-            tables.add("CUST_f7_4");
-            tables.add("LINK2_f6");
-            tables.add("LINK2_f6_1");
-            tables.add("LINK2_f6_2");
-            tables.add("LINK2_f6_3");
-            tables.add("LINK2_f6_4");
-            tables.add("LINK1_f5");
-            tables.add("LINK1_f5_1");
-            tables.add("LINK1_f5_2");
-            tables.add("LINK1_f5_3");
-            tables.add("LINK1_f5_4");
-            tables.add("AUM_f4");
-            tables.add("AUM_f4_1");
-            tables.add("AUM_f4_2");
-            tables.add("AUM_f4_3");
-            tables.add("AUM_f4_4");
-            tables.add("debit3_f3");
-            tables.add("debit3_f3_1");
-            tables.add("debit3_f3_2");
-            tables.add("debit3_f3_3");
-            tables.add("debit3_f3_4");
-            tables.add("debit2_f2");
-            tables.add("debit2_f2_1");
-            tables.add("debit2_f2_2");
-            tables.add("debit2_f2_3");
-            tables.add("debit2_f2_4");
-            tables.add("debit1_f1");
-            tables.add("debit1_f1_1");
-            tables.add("debit1_f1_2");
-            tables.add("debit1_f1_3");
-            tables.add("debit1_f1_4");
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("feedback", "feedback");
+            file2tables.put("feedback_1", "feedback");
+            file2tables.put("feedback_2", "feedback");
+            file2tables.put("feedback_3", "feedback");
+            file2tables.put("feedback_4", "feedback");
+            file2tables.put("sag_efs_tbproduct_F_b", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_1", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_2", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_3", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_4", "sag_efs_tbproduct_F_b");
+            file2tables.put("CUST_f7", "CUST_f7");
+            file2tables.put("CUST_f7_1", "CUST_f7");
+            file2tables.put("CUST_f7_2", "CUST_f7");
+            file2tables.put("CUST_f7_3", "CUST_f7");
+            file2tables.put("CUST_f7_4", "CUST_f7");
+            file2tables.put("LINK2_f6", "LINK2_f6");
+            file2tables.put("LINK2_f6_1", "LINK2_f6");
+            file2tables.put("LINK2_f6_2", "LINK2_f6");
+            file2tables.put("LINK2_f6_3", "LINK2_f6");
+            file2tables.put("LINK2_f6_4", "LINK2_f6");
+            file2tables.put("LINK1_f5", "LINK1_f5");
+            file2tables.put("LINK1_f5_1", "LINK1_f5");
+            file2tables.put("LINK1_f5_2", "LINK1_f5");
+            file2tables.put("LINK1_f5_3", "LINK1_f5");
+            file2tables.put("LINK1_f5_4", "LINK1_f5");
+            file2tables.put("AUM_f4", "AUM_f4");
+            file2tables.put("AUM_f4_1", "AUM_f4");
+            file2tables.put("AUM_f4_2", "AUM_f4");
+            file2tables.put("AUM_f4_3", "AUM_f4");
+            file2tables.put("AUM_f4_4", "AUM_f4");
+            file2tables.put("debit3_f3", "debit3_f3");
+            file2tables.put("debit3_f3_1", "debit3_f3");
+            file2tables.put("debit3_f3_2", "debit3_f3");
+            file2tables.put("debit3_f3_3", "debit3_f3");
+            file2tables.put("debit3_f3_4", "debit3_f3");
+            file2tables.put("debit2_f2", "debit2_f2");
+            file2tables.put("debit2_f2_1", "debit2_f2");
+            file2tables.put("debit2_f2_2", "debit2_f2");
+            file2tables.put("debit2_f2_3", "debit2_f2");
+            file2tables.put("debit2_f2_4", "debit2_f2");
+            file2tables.put("debit1_f1", "debit1_f1");
+            file2tables.put("debit1_f1_1", "debit1_f1");
+            file2tables.put("debit1_f1_2", "debit1_f1");
+            file2tables.put("debit1_f1_3", "debit1_f1");
+            file2tables.put("debit1_f1_4", "debit1_f1");
 
-            tables.forEach(t -> onlineLoad(folderPath, t));
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
 
         } catch (Exception e) {
             throw new RuntimeException("test abort because the loading phase of Q5 failed", e);
@@ -453,26 +444,26 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 String filePath;
                 for(int i=0; i<40; ++i){
                     if(i < 10){
-                        filePath = folderPath + "train/part-0000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
+                        filePath = folderPath + "/train/part-0000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
                     }else{
-                        filePath = folderPath + "train/part-000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
+                        filePath = folderPath + "/train/part-000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
                     }
                     readParquet(filePath);
                 }
                 break;
             }
             case 1: {
-                String filePath = folderPath + "train/part-00000-dc35485a-f7fc-4279-8343-162e08b0c42b-c000.snappy.parquet";
+                String filePath = folderPath + "/train/part-00000-dc35485a-f7fc-4279-8343-162e08b0c42b-c000.snappy.parquet";
                 readParquet(filePath);
                 break;
             }
             case 2: {
-                String filePath = folderPath + "train/part-00000-2f466a55-8a91-410a-b1e7-3822921aa045-c000.snappy.parquet";
+                String filePath = folderPath + "/train/part-00000-2f466a55-8a91-410a-b1e7-3822921aa045-c000.snappy.parquet";
                 readParquet(filePath);
                 break;
             }
             case 3: { 
-                String filePath = folderPath + "flatten_request/part-00000-8c54161a-2ecd-4025-a657-793f9cd569d2-c000.snappy.parquet";
+                String filePath = folderPath + "/flatten_request/part-00000-8c54161a-2ecd-4025-a657-793f9cd569d2-c000.snappy.parquet";
                 
                 
                 readParquet(filePath);
@@ -486,7 +477,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 int i;
                 for(int j=0; j<fs_number.length; ++j){
                     i=fs_number[j];
-                    String filePath = folderPath + "flattenRequest/part-0000" + i + "-b0861947-7aaa-4e44-9d41-e5776246c48c-c000.snappy.parquet";
+                    String filePath = folderPath + "/flattenRequest/part-0000" + i + "-b0861947-7aaa-4e44-9d41-e5776246c48c-c000.snappy.parquet";
                     readParquet(filePath);
                 }
                 break;
@@ -496,11 +487,11 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 for(int i=0; i<=99; ++i){
                 
                     if(i<10){
-                        filePath = folderPath + "flatten_request/part-0000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
+                        filePath = folderPath + "/flatten_request/part-0000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
                     }else if(i>=10 && i<100){
-                        filePath = folderPath + "flatten_request/part-000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
+                        filePath = folderPath + "/flatten_request/part-000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
                     }else{
-                        filePath = folderPath + "flatten_request/part-00" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
+                        filePath = folderPath + "/flatten_request/part-00" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
                     }
                     readParquet(filePath);
                 }

@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 //import org.apache.hadoop.fs.Path;
 //import org.apache.parquet.hadoop.ParquetReader;
@@ -51,29 +52,40 @@ public class Util {
     }
     // Only for load
     public static boolean executeSQL_block(String sql, SqlExecutor executor) {
+        Logger logger = LoggerFactory.getLogger(Util.class);
+
         System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
+            // Format the date and time using a formatter
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
             boolean ret = state.execute(sql);
             // check status
             ResultSet res = state.getResultSet();
             res.next();
             // print the job info
-            System.out.println("[INFO LOG]:\n" + res.getString(1));
+            System.out.println("[INFO LOG]: "+LocalDateTime.now().format(formatter)+"\n" + res.getString(1));
             String jobID = extractJobID(res.getString(1));
             boolean retOfShow = state.execute("SHOW JOB " + jobID + ";");
             ResultSet resOfShow = state.getResultSet();
             resOfShow.next();
             
-            // Format the date and time using a formatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            
+            long startTime = System.currentTimeMillis();
+            long endTime = System.currentTimeMillis();
+
             while(!resOfShow.getString(3).toLowerCase().equals("finished") &&
                 !resOfShow.getString(3).toLowerCase().equals("lost") &&
                 !resOfShow.getString(3).toLowerCase().equals("killed") &&
                 !resOfShow.getString(3).toLowerCase().equals("failed")) {
+
+                endTime = System.currentTimeMillis();
+                if ((endTime - startTime) / 1000 > 3600*3) {
+                    throw new TimeoutException("It appears that the loading process is taking too much time to complete. If you have a clear understanding of the issue, you may ignore this exception and remove the code that triggers it.");
+                }
+
                 // heartbeat
-                System.out.println("[HEART BEAT]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
+                logger.debug("[HEART BEAT]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
 
                 resOfShow.close();
                 TimeUnit.SECONDS.sleep(30);
