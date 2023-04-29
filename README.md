@@ -60,7 +60,8 @@ Step 4: Please modify the `conf.properties.template` file to create your own `co
 
 ```sh
 export FEBENCH_ROOT=`pwd`
-sed s#\<path\>#$FEBENCH_ROOT# ./conf/conf.properties.template > ./conf/conf.properties
+sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
 
