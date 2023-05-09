@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 //import org.apache.hadoop.fs.Path;
 //import org.apache.parquet.hadoop.ParquetReader;
@@ -54,26 +55,35 @@ public class Util {
         System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
+            // Format the date and time using a formatter
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
             boolean ret = state.execute(sql);
             // check status
             ResultSet res = state.getResultSet();
             res.next();
             // print the job info
-            System.out.println("[INFO LOG]:\n" + res.getString(1));
+            System.out.println("[INFO LOG]: "+LocalDateTime.now().format(formatter)+"\n" + res.getString(1));
             String jobID = extractJobID(res.getString(1));
             boolean retOfShow = state.execute("SHOW JOB " + jobID + ";");
             ResultSet resOfShow = state.getResultSet();
             resOfShow.next();
             
-            // Format the date and time using a formatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            
+            long startTime = System.currentTimeMillis();
+            long endTime = System.currentTimeMillis();
+
             while(!resOfShow.getString(3).toLowerCase().equals("finished") &&
                 !resOfShow.getString(3).toLowerCase().equals("lost") &&
                 !resOfShow.getString(3).toLowerCase().equals("killed") &&
                 !resOfShow.getString(3).toLowerCase().equals("failed")) {
+
+                endTime = System.currentTimeMillis();
+                if ((endTime - startTime) / 1000 > 3600*3) {
+                    throw new TimeoutException("It appears that the loading process is taking too much time to complete. If you have a clear understanding of the issue, you may ignore this exception and remove the code that triggers it.");
+                }
+
                 // heartbeat
-                System.out.println("[HEART BEAT]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
+                logger.debug("[HEART BEAT]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
 
                 resOfShow.close();
                 TimeUnit.SECONDS.sleep(30);
@@ -82,7 +92,8 @@ public class Util {
                 resOfShow.next();
             }
             System.out.println("[INFO LOG]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
-
+	
+	    // todo: make it configurable
             if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
                 resOfShow.close();
                 throw new Exception("[ERROR]: loading failed with final state '"+ resOfShow.getString(3) +"', please check the job log");
