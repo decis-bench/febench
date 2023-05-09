@@ -52,11 +52,11 @@ import java.io.File;
 
 @BenchmarkMode(Mode.SampleTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 
 
 
-@Threads(10)
+@Threads(5)
 @Fork(value = 1, jvmArgs = {"-Xms8G", "-Xmx8G"})
 @Warmup(iterations = 2)
 @Measurement(iterations = 5, time = 60)
@@ -186,7 +186,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
 
     public void onlineLoad(String path, String table) {
         String loadDataSQL = "LOAD DATA INFILE '"+ path + table + "' INTO TABLE " + table + " options(format='parquet', header=true, mode='append');";
-        Util.executeSQL_block(loadDataSQL, executor);;
+        Util.executeSQLSync(loadDataSQL, executor);;
     }
     
     

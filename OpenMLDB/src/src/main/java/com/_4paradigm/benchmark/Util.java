@@ -50,7 +50,7 @@ public class Util {
         return true;
     }
     // Only for load
-    public static boolean executeSQL_block(String sql, SqlExecutor executor) {
+    public static boolean executeSQLSync(String sql, SqlExecutor executor) {
         System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
