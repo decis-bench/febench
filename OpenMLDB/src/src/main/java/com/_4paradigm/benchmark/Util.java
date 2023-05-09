@@ -94,7 +94,8 @@ public class Util {
                 resOfShow.next();
             }
             System.out.println("[INFO LOG]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
-
+	
+	    // todo: make it configurable
             if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
                 resOfShow.close();
                 throw new Exception("[ERROR]: loading failed with final state '"+ resOfShow.getString(3) +"', please check the job log");
