@@ -18,8 +18,11 @@ package com._4paradigm.openmldb.benchmark;
 
 import java.sql.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 //import org.apache.hadoop.fs.Path;
 //import org.apache.parquet.hadoop.ParquetReader;
@@ -31,49 +34,76 @@ import org.apache.avro.Schema.Field;
 import com._4paradigm.openmldb.proto.Type;
 import com._4paradigm.openmldb.sdk.SqlExecutor;
 
+import org.slf4j.*;
+import org.apache.log4j.PropertyConfigurator;
+
 public class Util {
 
+
     public static boolean executeSQL(String sql, SqlExecutor executor) {
+        System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
             boolean ret = state.execute(sql);
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("", e);
         }
         return true;
     }
     // Only for load
-    public static boolean executeSQL_block(String sql, SqlExecutor executor) {
+    public static boolean executeSQLSync(String sql, SqlExecutor executor) {
+        Logger logger = LoggerFactory.getLogger(Util.class);
+        System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {
+            // Format the date and time using a formatter
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
             boolean ret = state.execute(sql);
             // check status
             ResultSet res = state.getResultSet();
             res.next();
-            System.out.println("[INFO LOG]:\n" + res.getString(1));
+            // print the job info
+            System.out.println("[INFO LOG]: "+LocalDateTime.now().format(formatter)+"\n" + res.getString(1));
             String jobID = extractJobID(res.getString(1));
-            System.out.println("[INFO LOG]:" + jobID);
-            boolean retOfShow = state.execute("SHOW JOB " + jobID);
+            boolean retOfShow = state.execute("SHOW JOB " + jobID + ";");
             ResultSet resOfShow = state.getResultSet();
             resOfShow.next();
+            
+            long startTime = System.currentTimeMillis();
+            long endTime = System.currentTimeMillis();
+
             while(!resOfShow.getString(3).toLowerCase().equals("finished") &&
                 !resOfShow.getString(3).toLowerCase().equals("lost") &&
                 !resOfShow.getString(3).toLowerCase().equals("killed") &&
                 !resOfShow.getString(3).toLowerCase().equals("failed")) {
-                System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
+
+                endTime = System.currentTimeMillis();
+                if ((endTime - startTime) / 1000 > 3600*3) {
+                    throw new TimeoutException("It appears that the loading process is taking too much time to complete. If you have a clear understanding of the issue, you may ignore this exception and remove the code that triggers it.");
+                }
+
+                // heartbeat
+                logger.debug("[HEART BEAT]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
+
                 resOfShow.close();
                 TimeUnit.SECONDS.sleep(30);
-                retOfShow = state.execute("SHOW JOB " + jobID);
+                retOfShow = state.execute("SHOW JOB " + jobID + ";");
                 resOfShow = state.getResultSet();
                 resOfShow.next();
             }
-            System.out.println("[INFO LOG]:" + resOfShow.getString(6) + "///" + resOfShow.getString(3));
-            resOfShow.close();
-
+            System.out.println("[INFO LOG]: " + LocalDateTime.now().format(formatter) + " Job" + jobID + " " + resOfShow.getString(3));
+	
+	    // todo: make it configurable
+            if(!resOfShow.getString(3).toLowerCase().equals("finished")) {
+                resOfShow.close();
+                throw new Exception("[ERROR]: loading failed with final state '"+ resOfShow.getString(3) +"', please check the job log");
+            }
+            else {
+                resOfShow.close();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Test abort because the loading phase failed", e);
         }
         return true;
     }

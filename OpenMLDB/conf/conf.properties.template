@@ -15,42 +15,42 @@ PK_BASE=1000000
 
 DATABASE_C0=q0_db
 DEPLOY_NAME_C0=q0_db_service
-DATA_FOLDER_C0=<absolute path to project>/dataset/Q0/train/
-DROP_SQL_C0=<absolute path to project>/OpenMLDB/fequery/Q0/Q0_drop_benchmark.sql
-CREATE_SQL_C0=<absolute path to project>/OpenMLDB/fequery/Q0/Q0_create_benchmark.sql
-DEPLOY_SQL_C0=<absolute path to project>/OpenMLDB/fequery/Q0/Q0_deploy_benchmark.sql
+DATA_FOLDER_C0=<path>/dataset/Q0/
+DROP_SQL_C0=<path>/OpenMLDB/fequery/Q0/Q0_drop_benchmark.sql
+CREATE_SQL_C0=<path>/OpenMLDB/fequery/Q0/Q0_create_benchmark.sql
+DEPLOY_SQL_C0=<path>/OpenMLDB/fequery/Q0/Q0_deploy_benchmark.sql
 
 DATABASE_C1=q1_db
 DEPLOY_NAME_C1=q1_db_service
-DATA_FOLDER_C1=<absolute path to project>/dataset/Q1/train/
-DROP_SQL_C1=<absolute path to project>/OpenMLDB/fequery/Q1/Q1_drop_benchmark.sql
-CREATE_SQL_C1=<absolute path to project>/OpenMLDB/fequery/Q1/Q1_create_benchmark.sql
-DEPLOY_SQL_C1=<absolute path to project>/OpenMLDB/fequery/Q1/Q1_deploy_benchmark.sql
+DATA_FOLDER_C1=<path>/dataset/Q1/
+DROP_SQL_C1=<path>/OpenMLDB/fequery/Q1/Q1_drop_benchmark.sql
+CREATE_SQL_C1=<path>/OpenMLDB/fequery/Q1/Q1_create_benchmark.sql
+DEPLOY_SQL_C1=<path>/OpenMLDB/fequery/Q1/Q1_deploy_benchmark.sql
 
 DATABASE_C2=q2_db
 DEPLOY_NAME_C2=q2_db_service
-DATA_FOLDER_C2=<absolute path to project>/dataset/Q2/
-DROP_SQL_C2=<absolute path to project>/OpenMLDB/fequery/Q2/Q2_drop_benchmark.sql
-CREATE_SQL_C2=<absolute path to project>/OpenMLDB/fequery/Q2/Q2_create_benchmark.sql
-DEPLOY_SQL_C2=<absolute path to project>/OpenMLDB/fequery/Q2/Q2_deploy_benchmark.sql
+DATA_FOLDER_C2=<path>/dataset/Q2/
+DROP_SQL_C2=<path>/OpenMLDB/fequery/Q2/Q2_drop_benchmark.sql
+CREATE_SQL_C2=<path>/OpenMLDB/fequery/Q2/Q2_create_benchmark.sql
+DEPLOY_SQL_C2=<path>/OpenMLDB/fequery/Q2/Q2_deploy_benchmark.sql
 
 DATABASE_C3=q3_db
 DEPLOY_NAME_C3=q3_db_service
-DATA_FOLDER_C3=<absolute path to project>/dataset/Q3/
-DROP_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
-CREATE_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
-DEPLOY_SQL_C3=<absolute path to project>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
+DATA_FOLDER_C3=<path>/dataset/Q3/
+DROP_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
+CREATE_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
+DEPLOY_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
 
 DATABASE_C4=q4_db
 DEPLOY_NAME_C4=q4_db_service
-DATA_FOLDER_C4=<absolute path to project>/dataset/Q4/
-DROP_SQL_C4=<absolute path to project>/OpenMLDB/fequery/Q4/Q4_drop_benchmark.sql
-CREATE_SQL_C4=<absolute path to project>/OpenMLDB/fequery/Q4/Q4_create_benchmark.sql
-DEPLOY_SQL_C4=<absolute path to project>/OpenMLDB/fequery/Q4/Q4_deploy_benchmark.sql
+DATA_FOLDER_C4=<path>/dataset/Q4/
+DROP_SQL_C4=<path>/OpenMLDB/fequery/Q4/Q4_drop_benchmark.sql
+CREATE_SQL_C4=<path>/OpenMLDB/fequery/Q4/Q4_create_benchmark.sql
+DEPLOY_SQL_C4=<path>/OpenMLDB/fequery/Q4/Q4_deploy_benchmark.sql
 
 DATABASE_C5=q5_db
 DEPLOY_NAME_C5=q5_db_service
-DATA_FOLDER_C5=<absolute path to project>/dataset/Q5/
-DROP_SQL_C5=<absolute path to project>/OpenMLDB/fequery/Q5/Q5_drop_benchmark.sql
-CREATE_SQL_C5=<absolute path to project>/OpenMLDB/fequery/Q5/Q5_create_benchmark.sql
-DEPLOY_SQL_C5=<absolute path to project>/OpenMLDB/fequery/Q5/Q5_deploy_benchmark.sql
+DATA_FOLDER_C5=<path>/dataset/Q5/
+DROP_SQL_C5=<path>/OpenMLDB/fequery/Q5/Q5_drop_benchmark.sql
+CREATE_SQL_C5=<path>/OpenMLDB/fequery/Q5/Q5_create_benchmark.sql
+DEPLOY_SQL_C5=<path>/OpenMLDB/fequery/Q5/Q5_deploy_benchmark.sql

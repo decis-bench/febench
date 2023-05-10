@@ -48,17 +48,25 @@ Step 1: Clone the repository
 Step 2: Download the datasets and move the data files to the dataset directory
 
   ```sh
-  wget -r -np -R "index.html*"  http://43.138.115.238/download/febench/data/; cp -r <dataset directory> ./dataset
+  wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P ./dataset
   ```
 
 > Note the data files are in parquet format.
 
-Step 3: Start the cluster and enter the *OpenMLDB* folder
+Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the `./OpenMLDB` folder in this project. For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
+> Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them. You can refer to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) for guidance. One acceptable size for these parameters is 32G/32G.
 
-Step 4: Update the settings (the OpenMLDB cluster, data/query locations) in the configuration file (./conf/conf.properties)
+Step 4: Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
+
+```sh
+export FEBENCH_ROOT=`pwd`
+sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
+```
+
 
   ```sh
-DATASET_ID=5  
+DATASET_ID=5   # set by compile_test.sh/test.sh
 DATASET_NUM=6
 ...
 
@@ -67,15 +75,13 @@ HOST=127.0.0.1:xxxx
 
 DATABASE_C3=q3_db
 DEPLOY_NAME_C3=q3_db_service
-DATA_FOLDER_C3=../dataset/Q3/
-DEPLOY_SQL_C3=./fequery/Q3/Q3_deploy_benchmark.sql
-CREATE_SQL_C3=./fequery/Q3/Q3_create_benchmark.sql
-DROP_SQL_C3=./fequery/Q3/Q3_drop_benchmark.sql
+DATA_FOLDER_C3=<path>/dataset/Q3/
+DEPLOY_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
+CREATE_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
+DROP_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
 ...
 
   ```
-
-> Note you can start a docker for ease of environment management.
 
 
 Step 5: Run the testing script

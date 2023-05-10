@@ -23,6 +23,9 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import org.slf4j.*;
+import org.apache.log4j.PropertyConfigurator;
+
 import java.sql.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -49,11 +52,11 @@ import java.io.File;
 
 @BenchmarkMode(Mode.SampleTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 
 
 
-@Threads(1)
+@Threads(5)
 @Fork(value = 1, jvmArgs = {"-Xms8G", "-Xmx8G"})
 @Warmup(iterations = 2)
 @Measurement(iterations = 5, time = 60)
@@ -71,7 +74,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
     private int windowNum;
     private int windowSize;
     private int joinNum;
-    
+    // private final static Logger logger = LoggerFactory.getLogger(OpenMLDBPerfBenchmark_Cluster.class);
     
     
     private static LongAdder current_row = new LongAdder();
@@ -90,7 +93,8 @@ public class OpenMLDBPerfBenchmark_Cluster {
     private List<Record> recordList = new ArrayList<>();
 
     
-    private void executeSQLFromFile(String filePath) {
+    private void executeSQLFromFile(String filePath, boolean noneException) {
+        System.out.println("executeSQLFromFile("+filePath+")");
         StringBuilder builder = new StringBuilder();
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -99,10 +103,15 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 Util.executeSQL(line, executor);
                 builder.append(line).append("\n");
             }
-	    } catch (Exception e){
-	        e.printStackTrace();
-	    }
-        System.out.println("executeSQLFromFile("+filePath+") sql:\n"+builder.toString());
+        }
+        catch (Exception e) {
+            if (noneException){
+                throw new RuntimeException("executeSQLFromFile abort because noneException is set to true", e);
+            }
+            else {
+                e.printStackTrace();
+            }
+        }
     }
 
     public OpenMLDBPerfBenchmark_Cluster() {
@@ -129,26 +138,31 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 }
             }
         }
+
+        // PropertyConfigurator.configure("conf/log4j.properties");
     }
 
     public void create() {
-        System.out.println("CREATE DATABASE IF NOT EXISTS " + database + ";");
-        Util.executeSQL("CREATE DATABASE IF NOT EXISTS " + database + ";", executor);
-        System.out.println("USE " + database + ";");
-        Util.executeSQL("USE " + database + ";", executor);
+        try {
+            Util.executeSQL("CREATE DATABASE IF NOT EXISTS " + database + ";", executor);
+            Util.executeSQL("USE " + database + ";", executor);
+            executeSQLFromFile(createSQLPath, true);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Test abort because creating database failed", e);
+        }
         
-        executeSQLFromFile(createSQLPath);
     }
 
     public void drop() {
-        System.out.println("USE " + database + ";");
-        Util.executeSQL("USE " + database + ";", executor);
-        System.out.println("DROP DEPLOYMENT " + deployName + ";");
-        Util.executeSQL("DROP DEPLOYMENT " + deployName + ";", executor);
-
-        executeSQLFromFile(dropSQLPath);
-
-        System.out.println("DROP DATABASE " + database + ";");
+        try{
+            Util.executeSQL("USE " + database + ";", executor);
+            Util.executeSQL("DROP DEPLOYMENT " + deployName + ";", executor);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        executeSQLFromFile(dropSQLPath, false);
         Util.executeSQL("DROP DATABASE " + database + ";", executor);
     }
 
@@ -164,13 +178,21 @@ public class OpenMLDBPerfBenchmark_Cluster {
 	    } catch (Exception e){
 	        e.printStackTrace();
 	    }
-
-        System.out.println("deploy() sql:"+builder.toString());
-        Util.executeSQL("USE " + database + ";", executor);
-        Util.executeSQL("SET @@execute_mode='online';", executor);
-        Util.executeSQL("DEPLOY " + deployName + " " + builder.toString(), executor);
+        try{
+            Util.executeSQL("USE " + database + ";", executor);
+            Util.executeSQL("SET @@execute_mode='online';", executor);
+            Util.executeSQL("DEPLOY " + deployName + " " + builder.toString(), executor);
+        }
+        catch (Exception e){
+            throw new RuntimeException("Test abort because the deployment failed");
+        }
     }
 
+
+    public void onlineLoad(String path, String file, String table) {
+        String loadDataSQL = "LOAD DATA INFILE '"+ path + "/" + file + "' INTO TABLE " + table + " options(format='parquet', header=true, mode='append');";
+        Util.executeSQLSync(loadDataSQL, executor);;
+    }
     
     
     
@@ -200,324 +222,120 @@ public class OpenMLDBPerfBenchmark_Cluster {
     }
 
     public void load2(String folderPath) {
-        //load benchmark
         try {
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            String loadDataSQL = "LOAD DATA INFILE '"+folderPath + "benchmark' INTO TABLE benchmark options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("benchmark", "benchmark");
+            file2tables.put("test", "test");
+            file2tables.put("windforecasts_wf1", "windforecasts_wf1");
+            file2tables.put("windforecasts_wf2", "windforecasts_wf2");
+            file2tables.put("windforecasts_wf3", "windforecasts_wf3");
+            file2tables.put("windforecasts_wf4", "windforecasts_wf4");
+            file2tables.put("windforecasts_wf5", "windforecasts_wf5");
+            file2tables.put("windforecasts_wf6", "windforecasts_wf6");
+            file2tables.put("windforecasts_wf7", "windforecasts_wf7");
 
-            //load test
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "test' INTO TABLE test options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load windforecasts_wf1
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf1' INTO TABLE windforecasts_wf1 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load windforecasts_wf2
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf2' INTO TABLE windforecasts_wf2 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load windforecasts_wf3
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf3' INTO TABLE windforecasts_wf3 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load windforecasts_wf4
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf4' INTO TABLE windforecasts_wf4 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load windforecasts_wf5 
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf5' INTO TABLE windforecasts_wf5 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load windforecasts_wf6
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf6' INTO TABLE windforecasts_wf6 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
 
-            //load windforecasts_wf7
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "windforecasts_wf7' INTO TABLE windforecasts_wf7 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("test abort because the loading phase of Q2 failed", e);
         }
 
     }
 
     public void load3(String folderPath) {
         try {
-            //load 
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            String loadDataSQL;
-            //load product_sku
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "product_sku' INTO TABLE product_sku options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("product_sku", "product_sku");
+            file2tables.put("product_item", "product_item");
+            file2tables.put("order_cancel_return", "order_cancel_return");
+            file2tables.put("shipping_sku", "shipping_sku");
+            file2tables.put("order_sales", "order_sales");
+            file2tables.put("order_sales_1", "order_sales");
+            file2tables.put("order_sales_2", "order_sales");
+            file2tables.put("order_sales_3", "order_sales");
+            file2tables.put("order_sales_4", "order_sales");
+            file2tables.put("feedback", "feedback");
 
-            //load product_item 
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "product_item' INTO TABLE product_item options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
 
-            //load order_cancel_return
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_cancel_return' INTO TABLE order_cancel_return options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            //load shipping_sku 
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "shipping_sku' INTO TABLE shipping_sku options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            //load order_sales
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_1' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_2' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_3' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "order_sales_4' INTO TABLE order_sales options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-
-            //load feedback
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("test abort because the loading phase of Q3 failed", e);
         }
 
     }
 
     public void load4(String folderPath) {
         try {
-            //load 
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            String loadDataSQL;
-            
-            //load action
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "action' INTO TABLE action options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            //load bo_POS_CASH_balance
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_POS_CASH_balance' INTO TABLE bo_POS_CASH_balance options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("action", "action");
+            file2tables.put("bo_POS_CASH_balance", "bo_POS_CASH_balance");
+            file2tables.put("bo_bureau", "bo_bureau");
+            file2tables.put("bo_bureau_balance", "bo_bureau_balance");
+            file2tables.put("bo_credit_card_balance", "bo_credit_card_balance");
+            file2tables.put("bo_installment_payment", "bo_installment_payment");
+            file2tables.put("bo_part", "bo_part");
+            file2tables.put("bo_previous_applicatio", "bo_previous_applicatio");
 
-            //load bo_bureau 
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_bureau' INTO TABLE bo_bureau options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-
-            //load bo_bureau_balance
-            
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_bureau_balance' INTO TABLE bo_bureau_balance options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-            //load bo_credit_card_balance
-            
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_credit_card_balance' INTO TABLE bo_credit_card_balance options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-
-            //load bo_installment_payment
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_installment_payment' INTO TABLE bo_installment_payment options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            //load bo_part
-            
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_part' INTO TABLE bo_part options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-
-            //load bo_previous_applicatio
-            
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "bo_previous_applicatio' INTO TABLE bo_previous_applicatio options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("test abort because the loading phase of Q4 failed", e);
         }
 
     }
 
     public void load5(String folderPath) {
         try {
-            
-            TimeUnit.SECONDS.sleep(10);
-            Util.executeSQL("SET @@execute_mode='online';", executor);
-            String loadDataSQL;
-	    
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_1' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_2' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_3' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "feedback_4' INTO TABLE feedback options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
+            Map<String, String> file2tables = new HashMap<String, String>();
+            file2tables.put("feedback", "feedback");
+            file2tables.put("feedback_1", "feedback");
+            file2tables.put("feedback_2", "feedback");
+            file2tables.put("feedback_3", "feedback");
+            file2tables.put("feedback_4", "feedback");
+            file2tables.put("sag_efs_tbproduct_F_b", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_1", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_2", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_3", "sag_efs_tbproduct_F_b");
+            file2tables.put("sag_efs_tbproduct_F_b_4", "sag_efs_tbproduct_F_b");
+            file2tables.put("CUST_f7", "CUST_f7");
+            file2tables.put("CUST_f7_1", "CUST_f7");
+            file2tables.put("CUST_f7_2", "CUST_f7");
+            file2tables.put("CUST_f7_3", "CUST_f7");
+            file2tables.put("CUST_f7_4", "CUST_f7");
+            file2tables.put("LINK2_f6", "LINK2_f6");
+            file2tables.put("LINK2_f6_1", "LINK2_f6");
+            file2tables.put("LINK2_f6_2", "LINK2_f6");
+            file2tables.put("LINK2_f6_3", "LINK2_f6");
+            file2tables.put("LINK2_f6_4", "LINK2_f6");
+            file2tables.put("LINK1_f5", "LINK1_f5");
+            file2tables.put("LINK1_f5_1", "LINK1_f5");
+            file2tables.put("LINK1_f5_2", "LINK1_f5");
+            file2tables.put("LINK1_f5_3", "LINK1_f5");
+            file2tables.put("LINK1_f5_4", "LINK1_f5");
+            file2tables.put("AUM_f4", "AUM_f4");
+            file2tables.put("AUM_f4_1", "AUM_f4");
+            file2tables.put("AUM_f4_2", "AUM_f4");
+            file2tables.put("AUM_f4_3", "AUM_f4");
+            file2tables.put("AUM_f4_4", "AUM_f4");
+            file2tables.put("debit3_f3", "debit3_f3");
+            file2tables.put("debit3_f3_1", "debit3_f3");
+            file2tables.put("debit3_f3_2", "debit3_f3");
+            file2tables.put("debit3_f3_3", "debit3_f3");
+            file2tables.put("debit3_f3_4", "debit3_f3");
+            file2tables.put("debit2_f2", "debit2_f2");
+            file2tables.put("debit2_f2_1", "debit2_f2");
+            file2tables.put("debit2_f2_2", "debit2_f2");
+            file2tables.put("debit2_f2_3", "debit2_f2");
+            file2tables.put("debit2_f2_4", "debit2_f2");
+            file2tables.put("debit1_f1", "debit1_f1");
+            file2tables.put("debit1_f1_1", "debit1_f1");
+            file2tables.put("debit1_f1_2", "debit1_f1");
+            file2tables.put("debit1_f1_3", "debit1_f1");
+            file2tables.put("debit1_f1_4", "debit1_f1");
 
-	
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_1' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_2' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_3' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "sag_efs_tbproduct_F_b_4' INTO TABLE sag_efs_tbproduct_F_b options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_1' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_2' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_3' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "CUST_f7_4' INTO TABLE CUST_f7 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_1' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_2' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_3' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK2_f6_4' INTO TABLE LINK2_f6 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_1' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_2' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_3' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "LINK1_f5_4' INTO TABLE LINK1_f5 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_1' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_2' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_3' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "AUM_f4_4' INTO TABLE AUM_f4 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_1' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_2' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_3' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit3_f3_4' INTO TABLE debit3_f3 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_1' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_2' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_3' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit2_f2_4' INTO TABLE debit2_f2 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
-
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_1' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_2' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_3' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            loadDataSQL = "LOAD DATA INFILE '"+folderPath + "debit1_f1_4' INTO TABLE debit1_f1 options(format='parquet', header=true, mode='append');";
-            System.out.println(loadDataSQL);
-            Util.executeSQL_block(loadDataSQL, executor);
-            
+            file2tables.forEach((f,t) -> onlineLoad(folderPath, f, t));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("test abort because the loading phase of Q5 failed", e);
         }
 
     }
@@ -631,26 +449,26 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 String filePath;
                 for(int i=0; i<40; ++i){
                     if(i < 10){
-                        filePath = folderPath + "part-0000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
+                        filePath = folderPath + "/train/part-0000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
                     }else{
-                        filePath = folderPath + "part-000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
+                        filePath = folderPath + "/train/part-000"+i+"-8a55dd20-601e-4d69-b252-79b729bdaa4f-c000.snappy.parquet";
                     }
                     readParquet(filePath);
                 }
                 break;
             }
             case 1: {
-                String filePath = folderPath + "part-00000-dc35485a-f7fc-4279-8343-162e08b0c42b-c000.snappy.parquet";
+                String filePath = folderPath + "/train/part-00000-dc35485a-f7fc-4279-8343-162e08b0c42b-c000.snappy.parquet";
                 readParquet(filePath);
                 break;
             }
             case 2: {
-                String filePath = folderPath + "train/part-00000-2f466a55-8a91-410a-b1e7-3822921aa045-c000.snappy.parquet";
+                String filePath = folderPath + "/train/part-00000-2f466a55-8a91-410a-b1e7-3822921aa045-c000.snappy.parquet";
                 readParquet(filePath);
                 break;
             }
             case 3: { 
-                String filePath = folderPath + "flatten_request/part-00000-8c54161a-2ecd-4025-a657-793f9cd569d2-c000.snappy.parquet";
+                String filePath = folderPath + "/flatten_request/part-00000-8c54161a-2ecd-4025-a657-793f9cd569d2-c000.snappy.parquet";
                 
                 
                 readParquet(filePath);
@@ -664,7 +482,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 int i;
                 for(int j=0; j<fs_number.length; ++j){
                     i=fs_number[j];
-                    String filePath = folderPath + "flattenRequest/part-0000" + i + "-b0861947-7aaa-4e44-9d41-e5776246c48c-c000.snappy.parquet";
+                    String filePath = folderPath + "/flattenRequest/part-0000" + i + "-b0861947-7aaa-4e44-9d41-e5776246c48c-c000.snappy.parquet";
                     readParquet(filePath);
                 }
                 break;
@@ -674,11 +492,11 @@ public class OpenMLDBPerfBenchmark_Cluster {
                 for(int i=0; i<=99; ++i){
                 
                     if(i<10){
-                        filePath = folderPath + "flatten_request/part-0000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
+                        filePath = folderPath + "/flatten_request/part-0000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
                     }else if(i>=10 && i<100){
-                        filePath = folderPath + "flatten_request/part-000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
+                        filePath = folderPath + "/flatten_request/part-000" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
                     }else{
-                        filePath = folderPath + "flatten_request/part-00" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
+                        filePath = folderPath + "/flatten_request/part-00" + i + "-a0b142f8-1171-4704-b5c3-ed80fc29fec8-c000.snappy.parquet";
                     }
                     readParquet(filePath);
                 }
