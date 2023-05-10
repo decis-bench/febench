@@ -52,6 +52,7 @@ public class Util {
     }
     // Only for load
     public static boolean executeSQLSync(String sql, SqlExecutor executor) {
+        Logger logger = LoggerFactory.getLogger(Util.class);
         System.out.println(sql);
         java.sql.Statement state = executor.getStatement();
         try {

@@ -93,7 +93,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
     private List<Record> recordList = new ArrayList<>();
 
     
-    private void executeSQLFromFile(String filePath) {
+    private void executeSQLFromFile(String filePath, boolean noneException) {
         System.out.println("executeSQLFromFile("+filePath+")");
         StringBuilder builder = new StringBuilder();
         try{
@@ -105,7 +105,12 @@ public class OpenMLDBPerfBenchmark_Cluster {
             }
         }
         catch (Exception e) {
-            throw new RuntimeException("", e);
+            if (noneException){
+                throw new RuntimeException("executeSQLFromFile abort because noneException is set to true", e);
+            }
+            else {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -141,7 +146,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
         try {
             Util.executeSQL("CREATE DATABASE IF NOT EXISTS " + database + ";", executor);
             Util.executeSQL("USE " + database + ";", executor);
-            executeSQLFromFile(createSQLPath);
+            executeSQLFromFile(createSQLPath, true);
         }
         catch (Exception e) {
             throw new RuntimeException("Test abort because creating database failed", e);
@@ -153,12 +158,12 @@ public class OpenMLDBPerfBenchmark_Cluster {
         try{
             Util.executeSQL("USE " + database + ";", executor);
             Util.executeSQL("DROP DEPLOYMENT " + deployName + ";", executor);
-            executeSQLFromFile(dropSQLPath);
-            Util.executeSQL("DROP DATABASE " + database + ";", executor);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+        executeSQLFromFile(dropSQLPath, false);
+        Util.executeSQL("DROP DATABASE " + database + ";", executor);
     }
 
     public void deploy() {
@@ -184,8 +189,8 @@ public class OpenMLDBPerfBenchmark_Cluster {
     }
 
 
-    public void onlineLoad(String path, String table) {
-        String loadDataSQL = "LOAD DATA INFILE '"+ path + table + "' INTO TABLE " + table + " options(format='parquet', header=true, mode='append');";
+    public void onlineLoad(String path, String file, String table) {
+        String loadDataSQL = "LOAD DATA INFILE '"+ path + "/" + file + "' INTO TABLE " + table + " options(format='parquet', header=true, mode='append');";
         Util.executeSQLSync(loadDataSQL, executor);;
     }
     
