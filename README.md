@@ -135,8 +135,9 @@ If you use FEBench in your research, please cite:
                   Yuqqiang Chen},
   title        = {FEBench: A Benchmark for Real-Time Relational Data Feature Extraction},
   journal      = {Proc. {VLDB} Endow.},
-  year         = {2023},
-}```
+  year         = {2023}
+}
+```
 
 ## ✉️ Contributing
 FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Please leave your comments in the [Issues](https://github.com/decis-bench/febench/issues) if you would like to get involved or contribute!
