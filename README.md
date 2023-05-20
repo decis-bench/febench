@@ -117,5 +117,26 @@ Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 
 ![image](./imgs/flink-jmh.png)
 
+## Citation
+
+If you use FEBench in your research, please cite:
+
+```bibtex
+@article{zhou2023febench,
+  author       = {Xuanhe Zhou and 
+                  Cheng Chen and
+                  Kunyi Li and
+                  Bingsheng He and
+                  Mian Lu and
+                  Qiaosheng Liu and
+                  Wei Huang and
+                  Guoliang Li and
+                  Zhao Zheng and
+                  Yuqqiang Chen},
+  title        = {FEBench: A Benchmark for Real-Time Relational Data Feature Extraction},
+  journal      = {Proc. {VLDB} Endow.},
+  year         = {2023},
+}```
+
 ## ✉️ Contributing
 FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Please leave your comments in the [Issues](https://github.com/decis-bench/febench/issues) if you would like to get involved or contribute!
