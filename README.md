@@ -53,6 +53,8 @@ Step 2: Download the datasets and move the data files to the dataset directory
 
 > Note the data files are in parquet format.
 
+Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
+
 Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the `./OpenMLDB` folder in this project. For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
 > Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them. You can refer to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) for guidance. One acceptable size for these parameters is 32G/32G.
 
