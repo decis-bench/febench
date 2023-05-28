@@ -47,7 +47,7 @@ public class Util {
         try {
             boolean ret = state.execute(sql);
         } catch (Exception e) {
-            throw new RuntimeException("", e);
+            throw new RuntimeException("sql failed: "+sql, e);
         }
         return true;
     }

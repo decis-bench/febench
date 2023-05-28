@@ -164,7 +164,12 @@ public class OpenMLDBPerfBenchmark_Cluster {
             e.printStackTrace();
         }
         executeSQLFromFile(dropSQLPath, false);
-        Util.executeSQL("DROP DATABASE " + database + ";", executor);
+        try{
+            Util.executeSQL("DROP DATABASE " + database + ";", executor);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deploy() {
