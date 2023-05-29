@@ -65,8 +65,9 @@ public class Util {
             ResultSet res = state.getResultSet();
             res.next();
             // print the job info
-            System.out.println("[INFO LOG]: "+LocalDateTime.now().format(formatter)+"\n" + res.getString(1));
-            String jobID = extractJobID(res.getString(1));
+            System.out.println("[INFO LOG]: "+LocalDateTime.now().format(formatter)+", Job ID: " + res.getInt(1));
+            // String jobID = extractJobID(res.getInt(1));
+            int jobID = res.getInt(1);
             boolean retOfShow = state.execute("SHOW JOB " + jobID + ";");
             ResultSet resOfShow = state.getResultSet();
             resOfShow.next();
