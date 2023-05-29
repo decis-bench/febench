@@ -107,7 +107,7 @@ Step 5: Run the testing script
 
 Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 
-1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB) to persist the Flink table data.
+1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB in MySQL) to persist the Flink table data. Note (1) the listening port is set 3306 by default and (2) you need to preload all the secondary tables into the storage engine.
 
 2. In Step 5, indicate the <dataset_ID> when running the *compile_test.sh* script; and no parameter when running *test.sh*, e.g., 
 
