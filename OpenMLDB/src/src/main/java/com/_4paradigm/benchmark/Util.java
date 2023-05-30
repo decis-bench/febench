@@ -38,6 +38,15 @@ import com._4paradigm.openmldb.sdk.SqlExecutor;
 import org.slf4j.*;
 import org.apache.log4j.PropertyConfigurator;
 
+// import org.apache.pdfbox.pdmodel.PDDocument;
+// import org.apache.pdfbox.pdmodel.PDPage;
+// import org.apache.pdfbox.pdmodel.PDPageContentStream;
+
+// import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.File;
+
 public class Util {
 
 
@@ -397,5 +406,23 @@ public class Util {
         }
         return val;
     }
+
+    // public static boolean reportGenerate(String filepath) {
+    //     ObjectMapper objectMapper = new ObjectMapper();
+
+    //     try {
+    //         File jsonFile = new File(filepath);
+    //         // Deserialize JSON file into Java object
+    //         MyDataObject dataObject = objectMapper.readValue(jsonFile, MyDataObject.class);
+
+    //         // Access data from the object
+    //         System.out.println("Name: " + dataObject.getprimaryMetric());
+    //         System.out.println("Age: " + dataObject.getAge());
+    //         // ...
+
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 }

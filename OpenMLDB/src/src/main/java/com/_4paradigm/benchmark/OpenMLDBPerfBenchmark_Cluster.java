@@ -23,6 +23,7 @@ import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jmh.results.format.ResultFormatType;
 
 import org.slf4j.*;
 import org.apache.log4j.PropertyConfigurator;
@@ -34,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
+import java.io.PrintStream;
 
 
 
@@ -51,7 +53,7 @@ import java.io.File;
 
 
 
-@BenchmarkMode(Mode.SampleTime)
+@BenchmarkMode({Mode.SampleTime, Mode.Throughput})
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 
@@ -537,7 +539,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
 
     @TearDown
     public void cleanEnv() {
-        
+        // Util.reportGenerate(BenchmarkConfig.logfile);
     }
 
 
@@ -657,6 +659,7 @@ public class OpenMLDBPerfBenchmark_Cluster {
     }
 
     public static void main(String[] args) {
+        
         int dataSetID = BenchmarkConfig.DATASET_ID;
         int dataSetNUM = BenchmarkConfig.DATASET_NUM;
 
@@ -671,6 +674,8 @@ public class OpenMLDBPerfBenchmark_Cluster {
             Options opt = new OptionsBuilder()
                     .include(OpenMLDBPerfBenchmark_Cluster.class.getSimpleName())
                     .forks(1)
+                    .resultFormat(ResultFormatType.JSON)
+                    .result(BenchmarkConfig.logfile)
                     .build();
             new Runner(opt).run();
         } catch (Exception e) {

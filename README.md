@@ -1,11 +1,15 @@
 <div align="center">
 
+
 -----
+
 A Benchmark for Real-Time Relational Data Feature Extraction.
 
 [**What is FEBench?**](#-what-is-febench)
 | [**Data and Query**](#-data-and-query)
 | [**Getting Started**](#%EF%B8%8F-quickstart)
+| [**Run in Docker**](#-run-in-docker)
+| [**Result Uploading**](#-result-uploading)
 | [**Contributing**](#%EF%B8%8F-contributing)
 </div>
 
@@ -29,6 +33,7 @@ However, there is no any study about the workload characteristics and benchmarks
 See the detailed [technical report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
 <span id="-data-and-query"></span>
+
 ## &#x1F4DC;  Data and Query
 
 We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/report/tableSchema.md) and [query analysis](https://github.com/decis-bench/febench/blob/main/report/queryAnalysis.md) for further information.
@@ -56,6 +61,7 @@ Step 2: Download the datasets and move the data files to the dataset directory
 Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
 
 Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the `./OpenMLDB` folder in this project. For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
+
 > Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them. You can refer to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) for guidance. One acceptable size for these parameters is 32G/32G.
 
 Step 4: Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
@@ -64,10 +70,6 @@ Step 4: Please modify the `conf.properties.template` file to create your own `co
 export FEBENCH_ROOT=`pwd`
 sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
-```
-
-
-  ```sh
 DATASET_ID=5   # set by compile_test.sh/test.sh
 DATASET_NUM=6
 ...
@@ -83,7 +85,7 @@ CREATE_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
 DROP_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
 ...
 
-  ```
+```
 
 
 Step 5: Run the testing script
@@ -115,9 +117,52 @@ Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
 ./compile_test.sh 3 // compile and run the test of task3
 ./test.sh // rerun the test of task3
 ```
+
 3. You need to rerun compile_test.sh if you modify the conf.properties. This is not needed for *OpenMLDB Evaluation*.
 
 ![image](./imgs/flink-jmh.png)
+
+<span id="-run-in-docker"></span>
+
+## 🐳 Run in Docker
+
+1. Download docker image.
+
+```bash
+docker pull lucky20020327/febench:v2.0
+```
+
+2. Run the image.
+
+```bash
+# note that you need download the data in advance and mount it into the container.
+docker run -it -v <data path>:/home/febench/dataset <image id>
+```
+
+3. Enter the `env` directory and start the clusters.
+
+```bash
+cd /home/env/bin
+./recover.sh
+./start-all.sh
+```
+
+4. Enter the `febench` directory and init the configuration.
+
+```bash
+cd /home/febench
+export FEBENCH_ROOT=`pwd`
+sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
+```
+
+5. Run the benchmark.
+
+<span id="-result-uploading"></span>
+
+##  📧 Result Uploading
+
+The result of benchmark is stored at \<system\>/logs. Email us if you want report your result and tell us ....
 
 ## Citation
 
@@ -142,4 +187,5 @@ If you use FEBench in your research, please cite:
 ```
 
 ## ✉️ Contributing
+
 FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Please leave your comments in the [Issues](https://github.com/decis-bench/febench/issues) if you would like to get involved or contribute!

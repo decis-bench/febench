@@ -875,6 +875,8 @@ public class flink_benchmark {
         try {
             Options opt = new OptionsBuilder()
                     .include(flink_benchmark.class.getSimpleName())
+                    .resultFormat(ResultFormatType.JSON)
+                    .result(BenchmarkConfig.logfile)
                     .forks(1)
                     .build();
             new Runner(opt).run();
