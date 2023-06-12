@@ -47,6 +47,8 @@ public class BenchmarkConfig {
 
     public static String DROP_SQL_C[];
 
+    public static String logfile;
+
     private static SqlExecutor executor = null;
     private static SdkOption option = null;
 
@@ -90,6 +92,8 @@ public class BenchmarkConfig {
             JOIN_NUM = Integer.valueOf(prop.getProperty("JOIN_NUM"));
             PK_NUM = Integer.valueOf(prop.getProperty("PK_NUM", "100000"));
             PK_MAX = Integer.valueOf(prop.getProperty("PK_MAX", "0"));
+
+            logfile = "logs/" + System.currentTimeMillis() + ".json";
 
         } catch (Exception e) {
             e.printStackTrace();
