@@ -1,11 +1,13 @@
 <div align="center">
 
 
+
 -----
 
 A Benchmark for Real-Time Relational Data Feature Extraction.
 
 [**What is FEBench?**](#-what-is-febench)
+| [**Leaderboard**](#-leaderboard)
 | [**Data and Query**](#-data-and-query)
 | [**Getting Started**](#%EF%B8%8F-quickstart)
 | [**Run in Docker**](#-run-in-docker)
@@ -32,6 +34,24 @@ However, there is no any study about the workload characteristics and benchmarks
 
 See the detailed [technical report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
+<span id="-leaderboard"></span>
+
+## 🏆 Leaderboard
+
+This leaderboard showcases the performance of executing FEBench on various hardware configurations. It's important to note that we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results as per the [Result Uploading](#-result-uploading) guidelines.
+
+### TP-50 Latency
+
+| System                 | Performance(ns/op) | Data Submit |
+| ---------------------- | ------------------ | ----------- |
+| [Example](example.com) | n                  | 1970/01/01  |
+
+### Throughtput
+
+| System                 | Performance(op/s) | Data Submit |
+| ---------------------- | ----------------- | ----------- |
+| [Example](example.com) | n                 | 1970/01/01  |
+
 <span id="-data-and-query"></span>
 
 ## &#x1F4DC;  Data and Query
@@ -53,7 +73,7 @@ Step 1: Clone the repository
 Step 2: Download the datasets and move the data files to the dataset directory
 
   ```sh
-  wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P ./dataset
+wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P ./dataset
   ```
 
 > Note the data files are in parquet format.
@@ -162,9 +182,9 @@ sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/co
 
 ##  📧 Result Uploading
 
-The result of benchmark is stored at \<system\>/logs. Email us if you want report your result and tell us ....
+The benchmark results are stored at \<system\>/logs. If you would like to report your results, please feel free to [email us](lkg19@mails.tsinghua.edu.cn) and tell us who you are. We appreciate your contribution.
 
-## Citation
+## 📎 Citation
 
 If you use FEBench in your research, please cite:
 
