@@ -40,12 +40,11 @@ See the detailed [technical report](https://github.com/decis-bench/febench/blob/
 
 This leaderboard showcases the performance of executing FEBench on various hardware configurations. It's important to note that we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results as per the [Result Uploading](#-result-uploading) guidelines.
 
-### TP-50 Latency
+| Hardware                         | Performance Score (ms/op) | Submit Date |
+| --------------------------------- | ------------------------ | ----------- |
+| Sapphire Rapids HBM (cache mode)  | 16.176                   | 2023/2      |
+| DDR5 only                        | 20.673                   | 2023/2      |
 
-| Hardware                 | Performance(ms/op) | Data Submit |
-| ---------------------- | ------------------ | ----------- |
-| Sapphire Rapids HBM (cache mode) |  16.176 | 2023/2  |
-| DDR5 only | 20.673  | 2023/2  |
 
 <span id="-data-and-query"></span>
 
