@@ -42,15 +42,10 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 
 ### TP-50 Latency
 
-| System                 | Performance(ns/op) | Data Submit |
+| Hardware                 | Performance(ms/op) | Data Submit |
 | ---------------------- | ------------------ | ----------- |
-| [Example](example.com) | n                  | 1970/01/01  |
-
-### Throughtput
-
-| System                 | Performance(op/s) | Data Submit |
-| ---------------------- | ----------------- | ----------- |
-| [Example](example.com) | n                 | 1970/01/01  |
+| Sapphire Rapids HBM (cache mode) |  16.176 | 2023/2  |
+| DDR5 only | 20.673  | 2023/2  |
 
 <span id="-data-and-query"></span>
 
