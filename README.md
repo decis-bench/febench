@@ -26,12 +26,13 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 
 ## 💡 What is FEBench?
 
-FEBench is a powerful benchmark designed for real-time feature extraction (RTFE) in the realm of online AI inference services. These services are rapidly being deployed in diverse applications, including *finance, retail, manufacturing, energy, media, and more.*
+FEBench is a novel benchmark specifically designed for real-time feature extraction (RTFE) within the domain of online AI inference services. These services are rapidly being deployed in diverse applications, including *finance, retail, manufacturing, energy, media, and more.*
 
-While various systems for RTFE have emerged, capable of processing incoming data tuples using SQL-like languages, there has been a notable lack of studies on workload characteristics and benchmarks for RTFE. FEBench addresses this gap by providing a comprehensive testing framework that allows comparison with existing database workloads and benchmarks like TPC-C.
+Despite the emergence of various RTFE systems capable of processing incoming data tuples using SQL-like languages, there remains a noticeable lack of studies on workload characteristics and benchmarks for RTFE.
 
-In close collaboration with our industry partners, we carefully crafted *FEBench*, incorporating selected datasets, query templates, and a comprehensive testing framework. We leverage *FEBench* to thoroughly investigate the effectiveness of feature extraction systems in terms of overall latency, tail latency, and concurrency performance.
+In close collaboration with our industry partners, *FEBench* addresses this gap by providing selected datasets, query templates, and a comprehensive testing framework that allows a thorough comparison with existing database workloads and benchmarks like TPC-C.
 
+We leverage *FEBench* to preliminarily investigate the effectiveness of feature extraction systems, focusing on aspects like overall latency, tail latency, and concurrency performance.
 
 For further insights, check out our detailed [Technical Report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
