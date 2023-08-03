@@ -1,7 +1,5 @@
 <div align="center">
 
-
-
 -----
 
 A Benchmark for Real-Time Relational Data Feature Extraction.
@@ -28,11 +26,14 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 
 ## 💡 What is FEBench?
 
-As online AI inference services have been rapidly deployed in many emerging applications such as fraud detection and recommendation, we have witnessed various systems developed for real-time feature extraction (RTFE) to compute real-time features over incoming new data tuples. Also, the RTFE procedures can be expressed in SQL like languages. 
+FEBench is a powerful benchmark designed for real-time feature extraction (RTFE) in the realm of online AI inference services. These services are rapidly being deployed in diverse applications, including *finance, retail, manufacturing, energy, media, and more.*
 
-However, there is no any study about the workload characteristics and benchmarks for RTFE, specifically in comparison with existing database workloads and benchmarks (such as TPC-C). Thus, we have cooperated with our industry partners and built a real-time feature extraction benchmark named FEBench. FEBench consists of selected datasets, query templates, and testing framework. We utilize FEBench to investigate the effectiveness of feature extraction systems and find all the tested systems (e.g., Flink, OpenMLDB) have their own problems in different aspects (e.g., overall latency, tail latency, and concurrency performance). 
+While various systems for RTFE have emerged, capable of processing incoming data tuples using SQL-like languages, there has been a notable lack of studies on workload characteristics and benchmarks for RTFE. FEBench addresses this gap by providing a comprehensive testing framework that allows comparison with existing database workloads and benchmarks like TPC-C.
 
-See the detailed [technical report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
+In close collaboration with our industry partners, we carefully crafted *FEBench*, incorporating selected datasets, query templates, and a comprehensive testing framework. We leverage *FEBench* to thoroughly investigate the effectiveness of feature extraction systems in terms of overall latency, tail latency, and concurrency performance.
+
+
+For further insights, check out our detailed [Technical Report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
 <span id="-leaderboard"></span>
 
