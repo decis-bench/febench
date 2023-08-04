@@ -45,9 +45,7 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 
 ## 🏆 Leaderboard
 
-This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted:
-- Latency: defined with the commonly used `top percentiles' in the industry.
-- Throughput: measured in QPS, i.e., the number of requests processed per second.
+This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted: *(i) Latency:* defined with the commonly used `top percentiles' in the industry; *(ii) Throughput:* measured in QPS, i.e., the number of requests processed per second.
 
 **Leaderboard - Latency (Q4)**
 | Hardware                         | Performance (tp50/tp90/tp99) | Submit Date |
@@ -55,7 +53,7 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 | [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 3.441/4.268/7.545                   | 2023/2      |
 
 **Leaderboard - Throughput (Q4)**
-| Hardware                         | Performance (ops/ms)         | Submit Date |
+| Hardware                         | Performance (ops/ms)  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       | Submit Date |
 | --------------------------------- | ------------------------ | ----------- |
 | [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 2.619                   | 2023/2      |
 
