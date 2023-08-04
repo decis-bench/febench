@@ -45,7 +45,7 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 
 ## 🏆 Leaderboard
 
-This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted: *(i) Latency:* defined with the commonly used `top percentiles' in the industry; *(ii) Throughput:* measured in QPS, i.e., the number of requests processed per second.
+This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted: *(i) Latency* defined with the commonly used `top percentiles' in the industry; *(ii) Throughput* measured in QPS, i.e., the number of requests processed per second.
 
 **Leaderboard - Latency (Q4)**
 | Hardware                         | Performance (tp50/tp90/tp99) | Submit Date |
