@@ -187,7 +187,7 @@ sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenM
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
-5. Run the benchmark.
+5. Run the benchmark according to Step 5 of *<a href="#-quickstart">QuickStart</a>*.
 
 <span id="-result-uploading"></span>
 
