@@ -1,11 +1,6 @@
-<div align="center">
-
------
-
-A Benchmark for Real-Time Relational Data Feature Extraction.
-
+<div align= "center">
+    <h1> FEBench: A Benchmark for Real-Time Feature Extraction</h1>
 </div>
-
 
 <p align="center">
   <a href="#-leaderboard">Leaderboard</a> •
@@ -15,6 +10,13 @@ A Benchmark for Real-Time Relational Data Feature Extraction.
   <a href="#-result-uploading">Result Uploading</a> •
   <a href="#-citation">Citation</a>
 </p>
+
+
+<br>
+<div align="center">
+<img src="imgs/example.png" width="800px">
+</div>
+<br>
 
 
 🔨 FEBench is a novel benchmark specifically designed for real-time feature extraction (RTFE) within the domain of online AI inference services. These services are rapidly being deployed in diverse applications, including *finance, retail, manufacturing, energy, media, and more.*
