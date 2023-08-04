@@ -14,7 +14,7 @@
 
 <br>
 <div align="center">
-<img src="imgs/example.png" width="800px">
+<img src="imgs/example.png" width="500px">
 </div>
 <br>
 
@@ -29,7 +29,7 @@
 
 For further insights, please check out our detailed [Technical Report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
-## Community
+## 👫 Community
 
 We deeply appreciate the invaluable effort contributed by our dedicated team of developers, supportive users, and esteemed industry partners.
 
