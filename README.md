@@ -4,14 +4,28 @@
 
 A Benchmark for Real-Time Relational Data Feature Extraction.
 
-[**What is FEBench?**](#-what-is-febench)
-| [**Leaderboard**](#-leaderboard)
-| [**Data and Query**](#-data-and-query)
-| [**Getting Started**](#%EF%B8%8F-quickstart)
-| [**Run in Docker**](#-run-in-docker)
-| [**Result Uploading**](#-result-uploading)
-| [**Contributing**](#%EF%B8%8F-contributing)
 </div>
+
+
+<p align="center">
+  <a href="#-leaderboard">Leaderboard</a> •
+  <a href="#-data-and-query">Data and Query</a> •
+  <a href="#-quickstart">QuickStart</a> •
+  <a href="#-run-in-docker">Run in Docker</a> •
+  <a href="#-result-uploading">Result Uploading</a> •
+  <a href="#-citation">Citation</a>
+</p>
+
+
+🔨 FEBench is a novel benchmark specifically designed for real-time feature extraction (RTFE) within the domain of online AI inference services. These services are rapidly being deployed in diverse applications, including *finance, retail, manufacturing, energy, media, and more.*
+
+  Despite the emergence of various RTFE systems capable of processing incoming data tuples using SQL-like languages, there remains a noticeable lack of studies on workload characteristics and benchmarks for RTFE.
+
+  In close collaboration with our industry partners, FEBench addresses this gap by providing *selected datasets*, *query templates*, and a comprehensive *testing framework*, which signifcantly differs from existing database workloads and benchmarks like TPC-C.
+
+👐 With FEBench, we preliminarily investigate the effectiveness of feature extraction systems together with advanced hardwares, focusing on aspects like overall latency, tail latency, and concurrency performance.
+
+For further insights, please check out our detailed [Technical Report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
 ## Community
 
@@ -24,17 +38,6 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 - [Apache Flink](https://flink.apache.org/)
 - [Intel](https://www.intel.com/)
 
-## 💡 What is FEBench?
-
-🔨 FEBench is a novel benchmark specifically designed for real-time feature extraction (RTFE) within the domain of online AI inference services. These services are rapidly being deployed in diverse applications, including *finance, retail, manufacturing, energy, media, and more.*
-
-  Despite the emergence of various RTFE systems capable of processing incoming data tuples using SQL-like languages, there remains a noticeable lack of studies on workload characteristics and benchmarks for RTFE.
-
-  In close collaboration with our industry partners, FEBench addresses this gap by providing *selected datasets*, *query templates*, and a comprehensive *testing framework*, which signifcantly differs from existing database workloads and benchmarks like TPC-C.
-
-👐 With FEBench, we preliminarily investigate the effectiveness of feature extraction systems together with advanced hardwares, focusing on aspects like overall latency, tail latency, and concurrency performance.
-
-For further insights, please check out our detailed [Technical Report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
 <span id="-leaderboard"></span>
 
@@ -53,6 +56,9 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 ## &#x1F4DC;  Data and Query
 
 We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/report/tableSchema.md) and [query analysis](https://github.com/decis-bench/febench/blob/main/report/queryAnalysis.md) for further information.
+
+
+<span id="-quickstart"></span>
 
 ## ⚡️ Quickstart
 
@@ -179,6 +185,9 @@ sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/co
 ##  📧 Result Uploading
 
 The benchmark results are stored at \<system\>/logs. If you would like to report your results, please feel free to [email us](lkg19@mails.tsinghua.edu.cn) and tell us who you are. We appreciate your contribution.
+
+
+<span id="-citation"></span>  
 
 ## 📎 Citation
 
