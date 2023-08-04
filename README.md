@@ -45,13 +45,23 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 
 ## 🏆 Leaderboard
 
-This leaderboard showcases the performance of executing FEBench on various hardware configurations. It's important to note that we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results as per the [Result Uploading](#-result-uploading) guidelines.
+This leaderboard showcases the performance of executing FEBench on various hardware configurations. It's important to note that we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
-| Hardware                         | Performance Score (ms/op) | Submit Date |
+We mainly use two performance metrics:
+- Latency: defined with the commonly used `top percentiles' in the industry.
+- Throughput: measured in QPS, i.e., the number of requests processed per second.
+
+
+|Leaderboard - Latency (Q4)        | |  |
 | --------------------------------- | ------------------------ | ----------- |
-| Sapphire Rapids HBM (cache mode)  | 16.176                   | 2023/2      |
-| DDR5 only                        | 20.673                   | 2023/2      |
+| Hardware                         | Performance (tp50/tp90/tp99) | Submit Date |
+| [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 3.441/4.268/7.545                   | 2023/2      |
 
+
+|Leaderboard - Throughput (Q4)        | |  |
+| --------------------------------- | ------------------------ | ----------- |
+| Hardware                         | Performance (ops/ms) | Submit Date |
+| [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 2.619                   | 2023/2      |
 
 <span id="-data-and-query"></span>
 
