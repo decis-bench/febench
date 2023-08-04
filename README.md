@@ -14,7 +14,7 @@
 
 <br>
 <div align="center">
-<img src="imgs/example.png" width="500px">
+<img src="imgs/example.png" width="600px">
 </div>
 <br>
 
