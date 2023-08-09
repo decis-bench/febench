@@ -70,11 +70,17 @@ Note we utilize the performance results of **OpenMLDB** as the basis for ranking
 We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/report/tableSchema.md) and [query analysis](https://github.com/decis-bench/febench/blob/main/report/queryAnalysis.md) for further information.
 
 
+
 <span id="-quickstart"></span>
 
 ## ⚡️ Quickstart
 
 This repository includes the following parts: (1) AI features, (2) OpenMLDB evaluation, (3) Flink evaluation.
+
+### Prerequisites
+
+1. Java JDK: 1.8.0
+2. Maven: 3.8.0
 
 ### Part 1 (AI Features)
 
@@ -82,9 +88,9 @@ In the *features* folder: Check out the features utilized in each of the 6 AI ta
 
 ### Part 2 (OpenMLDB Evaluation)
 
-Step 1: Clone the repository
+**Step 1:** Clone the repository
 
-Step 2: Download the datasets and move the data files to the dataset directory
+**Step 2:** Download the datasets and move the data files to the dataset directory
 
   ```sh
 wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P ./dataset
@@ -94,35 +100,33 @@ wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/f
 
 Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
 
-Step 3: [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the `./OpenMLDB` folder in this project. For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
+**Step 3:** [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the `./OpenMLDB` folder in this project. For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
 
 > Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them. You can refer to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) for guidance. One acceptable size for these parameters is 32G/32G.
 
-Step 4: Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
+**Step 4:** Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
+
+4.1  Modify the locations of data and query,
 
 ```sh
 export FEBENCH_ROOT=`pwd`
 sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
-DATASET_ID=5   # set by compile_test.sh/test.sh
-DATASET_NUM=6
-...
 
-HOST=127.0.0.1:xxxx
-...
+```
 
-DATABASE_C3=q3_db
-DEPLOY_NAME_C3=q3_db_service
-DATA_FOLDER_C3=<path>/dataset/Q3/
-DEPLOY_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_deploy_benchmark.sql
-CREATE_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql
-DROP_SQL_C3=<path>/OpenMLDB/fequery/Q3/Q3_drop_benchmark.sql
-...
+4.2 Modify the OpenMLDB cluster in `conf.properties` to your own,
+
+```sh
+# ./OpenMLDB/conf/conf.properties
+
+ZK_CLUSTER=127.0.0.1:7181
+ZK_PATH=/openmldb
 
 ```
 
 
-Step 5: Run the testing script
+**Step 5:** Run the testing script
 
 5.1 Run the compile_test.sh file (for the first time),
 
@@ -190,7 +194,7 @@ sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenM
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
-5. Run the benchmark.
+5. Run the benchmark according to Step 5 of *<a href="#-quickstart">QuickStart</a>*.
 
 <span id="-result-uploading"></span>
 
