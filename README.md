@@ -67,11 +67,17 @@ Note we utilize the performance results of **OpenMLDB** as the basis for ranking
 We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/report/tableSchema.md) and [query analysis](https://github.com/decis-bench/febench/blob/main/report/queryAnalysis.md) for further information.
 
 
+
 <span id="-quickstart"></span>
 
 ## ⚡️ Quickstart
 
 This repository includes the following parts: (1) AI features, (2) OpenMLDB evaluation, (3) Flink evaluation.
+
+### Prerequisites
+
+1. Java JDK: 1.8.0
+2. Maven: 3.8.0
 
 ### Part 1 (AI Features)
 
@@ -119,7 +125,7 @@ ZK_PATH=/openmldb
 
 **Step 5:** Run the testing script
 
-5.1 Run the compile_test.sh file (for the first time). You are recommended using Maven version 3.8.0,
+5.1 Run the compile_test.sh file (for the first time),
 
 ```bash
 ./compile_test.sh <dataset_ID>
