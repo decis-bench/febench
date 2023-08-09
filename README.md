@@ -106,7 +106,15 @@ sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/co
 
 ```
 
-4.2 Modify the OpenMLDB cluster in conf.properties to your own,
+4.2 Modify the OpenMLDB cluster in `conf.properties` to your own,
+
+```sh
+# ./OpenMLDB/conf/conf.properties
+
+ZK_CLUSTER=127.0.0.1:7181
+ZK_PATH=/openmldb
+
+```
 
 
 **Step 5:** Run the testing script
