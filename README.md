@@ -56,7 +56,7 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 | [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 3.441/4.268/7.545                   | 2023/2      |
 
 **Leaderboard - Throughput (Q4)**
-| Hardware                         | Average Performance (ops/ms)  &nbsp;    | Submit Date |
+| Hardware                         | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
 | --------------------------------- | ------------------------ | ----------- |
 | [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 2.619                   | 2023/2      |
 
