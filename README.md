@@ -53,12 +53,12 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 **Leaderboard - Latency (Q4)**
 | Hardware                         | TP50/90/99 Performance (ms) &nbsp; &nbsp;  | Submit Date |
 | --------------------------------- | ------------------------ | ----------- |
-| [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 3.441/4.268/7.545                   | 2023/2      |
+| [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 3.441/4.268/7.545                   | 2023/2      |
 
 **Leaderboard - Throughput (Q4)**
 | Hardware                         | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
 | --------------------------------- | ------------------------ | ----------- |
-| [(Dual Xeon, 512GB DDR5, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 2.619                   | 2023/2      |
+| [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 2.619                   | 2023/2      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
@@ -102,11 +102,11 @@ wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/f
 
 Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
 
-**Step 3:** [Start the cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html) and enter the `./OpenMLDB` folder in this project. For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
+**Step 3:** [Start the OpenMLDB cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html). For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
 
 > Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them. You can refer to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) for guidance. One acceptable size for these parameters is 32G/32G.
 
-**Step 4:** Please modify the `conf.properties.template` file to create your own `conf.properties` file in the `./conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
+**Step 4:** Modify the `conf.properties.template` file to create your own `conf.properties` file in the `./OpenMLDB/conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
 
 4.1  Modify the locations of data and query,
 
@@ -128,43 +128,38 @@ ZK_PATH=/openmldb
 ```
 
 
-**Step 5:** Run the testing script
-
-5.1 Run the compile_test.sh file (for the first time),
+**Step 5:** Compile and run the test
 
 ```bash
-./compile_test.sh <dataset_ID>
-```
-
-5.2 Otherwise,
-
-```bash
+cd OpenMLDB
+./compile_test.sh 
 ./test.sh <dataset_ID>
 ```
-
+Example test result looks as follows
 ![image](./imgs/openmldb-jmh.png)
 
 
 ### Flink Evaluation
 
-Repeat the 1-5 steps in *OpenMLDB Evaluation*. And there are a few new issues:
+Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#OpenMLDB Evaluation). And there are a few more steps:
 
 1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB in MySQL) to persist the Flink table data. Note (1) the listening port is set 3306 by default and (2) you need to preload all the secondary tables into the storage engine.
 
-2. In Step 5, indicate the <dataset_ID> when running the *compile_test.sh* script; and no parameter when running *test.sh*, e.g., 
+2. In Step 5, supply <dataset_ID> when running *compile_test.sh* script; and no parameter when running *test.sh*, e.g., 
 
 ```bash
 ./compile_test.sh 3 // compile and run the test of task3
 ./test.sh // rerun the test of task3
 ```
 
-3. You need to rerun compile_test.sh if you modify the conf.properties. This is not needed for *OpenMLDB Evaluation*.
+3. You will need to rerun *compile_test.sh* if you modify the file *conf.properties*. This is not required for *OpenMLDB Evaluation*.
 
 ![image](./imgs/flink-jmh.png)
 
 <span id="-run-in-docker"></span>
 
 ## 🐳 Run in Docker
+We have included a comprehensive testing procedure in a docker for you to try.
 
 1. Download docker image.
 
@@ -187,7 +182,7 @@ cd /home/env/bin
 ./start-all.sh
 ```
 
-4. Enter the `febench` directory and init the configuration.
+4. Enter `febench` directory and init the configuration.
 
 ```bash
 cd /home/febench
@@ -196,7 +191,7 @@ sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenM
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
-5. Run the benchmark according to Step 5 of *<a href="#-quickstart">QuickStart</a>*.
+5. Run the benchmark according to Step 5 in *<a href="#-quickstart">QuickStart</a>*.
 
 <span id="-result-uploading"></span>
 
