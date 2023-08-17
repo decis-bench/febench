@@ -141,7 +141,7 @@ Example test result looks as follows
 
 ### Flink Evaluation
 
-Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#OpenMLDB Evaluation). And there are a few more steps:
+Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there are a few more steps:
 
 1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB in MySQL) to persist the Flink table data. Note (1) the listening port is set 3306 by default and (2) you need to preload all the secondary tables into the storage engine.
 
