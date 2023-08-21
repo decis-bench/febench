@@ -112,7 +112,8 @@ Note that, the above server is located in China, if you are experiencing slow co
 
 ```sh
 export FEBENCH_ROOT=`pwd`
-sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+# better to add file://
+sed s#\<path\>#file://$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 
 ```
