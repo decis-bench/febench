@@ -164,28 +164,26 @@ We have included a comprehensive testing procedure in a docker for you to try.
 1. Download docker image.
 
 ```bash
-docker pull lucky20020327/febench:v2.0
+docker pull vegatablechicken/febench:0.5.0
 ```
 
 2. Run the image.
 
 ```bash
 # note that you need download the data in advance and mount it into the container.
-docker run -it -v <data path>:/home/febench/dataset <image id>
+docker run -it -v <data path>:/work/febench/dataset <image id>
 ```
 
-3. Enter the `env` directory and start the clusters.
+3. Start the clusters, addr is `localhost:7181`, path is `/openmldb``.
 
 ```bash
-cd /home/env/bin
-./recover.sh
-./start-all.sh
+/work/init.sh
 ```
 
 4. Enter `febench` directory and init the configuration.
 
 ```bash
-cd /home/febench
+cd /work/febench
 export FEBENCH_ROOT=`pwd`
 sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
