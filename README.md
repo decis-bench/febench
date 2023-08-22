@@ -55,13 +55,13 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 
 | Contributor         | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
-| Tsinghua University | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
+| Tsinghua | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
 
 **Leaderboard - Throughput**
 
 | Contributor         | Hardware                                                     | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
-| Tsinghua University | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4.301                                       | 2023/2      |
+| Tsinghua | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4.301                                       | 2023/2      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
