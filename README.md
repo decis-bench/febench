@@ -6,16 +6,19 @@
   <a href="#-leaderboard">Leaderboard</a> •
   <a href="#-data-and-query">Data and Query</a> •
   <a href="#-quickstart">QuickStart</a> •
-  <a href="#-run-in-docker">Run in Docker</a> •
+  <a href="#-customized-implementation">Customized Implementation</a> •
   <a href="#-result-uploading">Result Uploading</a> •
   <a href="#-citation">Citation</a>
 </p>
 
 
+
 <br>
+
 <div align="center">
 <img src="imgs/example.png" width="600px">
 </div>
+
 <br>
 
 
@@ -48,17 +51,17 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted: *(i) Latency* defined with the commonly used `top percentiles' in the industry; *(ii) Throughput* measured in QPS, i.e., the number of requests processed per second.  
 <br>
 
+**Leaderboard - Latency**
 
+| Contributor         | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
+| Tsinghua University | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
 
-**Leaderboard - Latency (Q4)**
-| Hardware                         | TP50/90/99 Performance (ms) &nbsp; &nbsp;  | Submit Date |
-| --------------------------------- | ------------------------ | ----------- |
-| [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 3.441/4.268/7.545                   | 2023/2      |
+**Leaderboard - Throughput**
 
-**Leaderboard - Throughput (Q4)**
-| Hardware                         | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
-| --------------------------------- | ------------------------ | ----------- |
-| [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md)                        | 2.619                   | 2023/2      |
+| Contributor         | Hardware                                                     | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
+| Tsinghua University | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4.301                                       | 2023/2      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
@@ -69,11 +72,69 @@ Note we utilize the performance results of **OpenMLDB** as the basis for ranking
 
 We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/report/tableSchema.md) and [query analysis](https://github.com/decis-bench/febench/blob/main/report/queryAnalysis.md) for further information.
 
-
-
 <span id="-quickstart"></span>
 
-## ⚡️ Quickstart
+## 🐳 Quickstart
+
+### Data Downloading
+
+Download the datasets. Update \<folder\_path\> with the specific path you are using,
+
+  ```sh
+wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P <folder_path>
+  ```
+
+> Note the data files are in parquet format.
+
+Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
+
+### Run in Docker
+
+We have included a comprehensive testing procedure in a docker for you to try.
+
+1. Download docker image.
+
+```bash
+docker pull lucky20020327/febench:v2.0
+```
+
+2. Run the image.
+
+```bash
+# note that you need download the data in advance and mount it into the container.
+docker run -it -v <data path>:/home/febench/dataset <image id>
+```
+
+3. Enter the `env` directory and start the clusters.
+
+```bash
+cd /home/env/bin
+./recover.sh
+./start-all.sh
+```
+
+4. update the repository
+
+```bash
+git pull 
+```
+
+4. Enter `febench` directory and init the configuration.
+
+```bash
+cd /home/febench
+export FEBENCH_ROOT=`pwd`
+sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
+```
+
+5. Run the benchmark according to Step 5 in *<a href="#-customized-implementation">Customized Implementation</a>*.
+
+<span id="-customized-implementation"></span>
+
+## ⚡️ Customized Implementation
+
+You can build the cluster from the ground up, enabling you to customize the testing environment according to your needs.
 
 In this section you'll find: (1) Prerequisites, (2) AI features, (3) OpenMLDB evaluation, (4) Flink evaluation.
 
@@ -92,15 +153,7 @@ In the *features* folder: Check out the features utilized in each of the 6 AI ta
 
 **Step 1:** Clone the repository
 
-**Step 2:** Download the datasets and move the data files to the dataset directory
-
-  ```sh
-wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P ./dataset
-  ```
-
-> Note the data files are in parquet format.
-
-Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
+**Step 2:** Download and move the data files to the `dataset` directory of the repository
 
 **Step 3:** [Start the OpenMLDB cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html). For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
 
@@ -115,7 +168,6 @@ export FEBENCH_ROOT=`pwd`
 # better to add file://
 sed s#\<path\>#file://$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
-
 ```
 
 4.2 Modify the OpenMLDB cluster in `conf.properties` to your own,
@@ -125,9 +177,7 @@ sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/co
 
 ZK_CLUSTER=127.0.0.1:7181
 ZK_PATH=/openmldb
-
 ```
-
 
 **Step 5:** Compile and run the test
 
@@ -136,6 +186,7 @@ cd OpenMLDB
 ./compile_test.sh 
 ./test.sh <dataset_ID>
 ```
+
 Example test result looks as follows
 ![image](./imgs/openmldb-jmh.png)
 
@@ -196,8 +247,19 @@ sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/co
 
 ##  📧 Result Uploading
 
-The benchmark results are stored at \<system\>/logs. If you would like to report your results, please feel free to [email us](lkg19@mails.tsinghua.edu.cn) and tell us who you are. We appreciate your contribution.
+The benchmark results are stored at \<Openmldb/flink>/logs. If you'd like to share your results, please feel free to [send us an email](mailto:febench2023@gmail.com). Please tell us your **institution (optional)**, **system configurations**, and **attach the result file** to the email. We appreciate your contribution.
 
+Example of system configurations:
+
+| Setting          | Value                                        |
+| ---------------- | -------------------------------------------- |
+| Memory           | 512 GB DDR4 2667 MHz                         |
+| CPU              | 2x Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz |
+| Network          | 1 Gbps                                       |
+| OS               | CentOS 7                                     |
+| Tablet Server    | 3                                            |
+| Name Server      | 1                                            |
+| OpenMLDB Version | v0.6.4                                       |
 
 <span id="-citation"></span>  
 
