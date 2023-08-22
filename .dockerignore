@@ -1,0 +1,7 @@
+Dockerfile
+.metals/
+.vscode/
+# mount dataset, don't copy to image
+dataset/*
+*/target/
+*logs/

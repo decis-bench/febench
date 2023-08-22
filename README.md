@@ -165,7 +165,8 @@ In the *features* folder: Check out the features utilized in each of the 6 AI ta
 
 ```sh
 export FEBENCH_ROOT=`pwd`
-sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+# better to add file://
+sed s#\<path\>#file://$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
@@ -206,6 +207,41 @@ Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there
 3. You will need to rerun *compile_test.sh* if you modify the file *conf.properties*. This is not required for *OpenMLDB Evaluation*.
 
 ![image](./imgs/flink-jmh.png)
+
+<span id="-run-in-docker"></span>
+
+## 🐳 Run in Docker
+We have included a comprehensive testing procedure in a docker for you to try.
+
+1. Download docker image.
+
+```bash
+docker pull vegatablechicken/febench:0.5.0
+```
+
+2. Run the image.
+
+```bash
+# note that you need download the data in advance and mount it into the container.
+docker run -it -v <data path>:/work/febench/dataset <image id>
+```
+
+3. Start the clusters, addr is `localhost:7181`, path is `/openmldb``.
+
+```bash
+/work/init.sh
+```
+
+4. Enter `febench` directory and init the configuration.
+
+```bash
+cd /work/febench
+export FEBENCH_ROOT=`pwd`
+sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
+sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
+```
+
+5. Run the benchmark according to Step 5 in *<a href="#-quickstart">QuickStart</a>*.
 
 <span id="-result-uploading"></span>
 
