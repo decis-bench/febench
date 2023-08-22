@@ -2,6 +2,7 @@
     <h1> FEBench: A Benchmark for Real-Time Feature Extraction</h1>
 </div>
 
+
 <p align="center">
   <a href="#-leaderboard">Leaderboard</a> •
   <a href="#-data-and-query">Data and Query</a> •
@@ -13,11 +14,13 @@
 
 
 
+
 <br>
 
 <div align="center">
 <img src="imgs/example.png" width="600px">
 </div>
+
 
 <br>
 
@@ -53,15 +56,15 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 
 **Leaderboard - Latency**
 
-| Contributor         | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
-| ------------------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
-| Tsinghua | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
+| Contributor | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
+| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
 
 **Leaderboard - Throughput**
 
-| Contributor         | Hardware                                                     | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
-| ------------------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
-| Tsinghua | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4.301                                       | 2023/2      |
+| Contributor | Hardware                                                     | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
+| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4.301                                       | 2023/2      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
@@ -95,22 +98,20 @@ We have included a comprehensive testing procedure in a docker for you to try.
 1. Download docker image.
 
 ```bash
-docker pull lucky20020327/febench:v2.0
+docker pull vegatablechicken/febench:0.5.0
 ```
 
 2. Run the image.
 
 ```bash
 # note that you need download the data in advance and mount it into the container.
-docker run -it -v <data path>:/home/febench/dataset <image id>
+docker run -it -v <data path>:/work/febench/dataset <image id>
 ```
 
-3. Enter the `env` directory and start the clusters.
+3. Start the clusters, addr is `localhost:7181`, path is `/openmldb``.
 
 ```bash
-cd /home/env/bin
-./recover.sh
-./start-all.sh
+/work/init.sh
 ```
 
 4. update the repository
@@ -119,7 +120,7 @@ cd /home/env/bin
 git pull 
 ```
 
-4. Enter `febench` directory and init the configuration.
+5. Enter `febench` directory and init the configuration.
 
 ```bash
 cd /home/febench
@@ -128,7 +129,7 @@ sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenM
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
-5. Run the benchmark according to Step 5 in *<a href="#-customized-implementation">Customized Implementation</a>*.
+6. Run the benchmark according to Step 5 in *<a href="#-customized-implementation">Customized Implementation</a>*.
 
 <span id="-customized-implementation"></span>
 
@@ -208,41 +209,6 @@ Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there
 
 ![image](./imgs/flink-jmh.png)
 
-<span id="-run-in-docker"></span>
-
-## 🐳 Run in Docker
-We have included a comprehensive testing procedure in a docker for you to try.
-
-1. Download docker image.
-
-```bash
-docker pull vegatablechicken/febench:0.5.0
-```
-
-2. Run the image.
-
-```bash
-# note that you need download the data in advance and mount it into the container.
-docker run -it -v <data path>:/work/febench/dataset <image id>
-```
-
-3. Start the clusters, addr is `localhost:7181`, path is `/openmldb``.
-
-```bash
-/work/init.sh
-```
-
-4. Enter `febench` directory and init the configuration.
-
-```bash
-cd /work/febench
-export FEBENCH_ROOT=`pwd`
-sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
-sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
-```
-
-5. Run the benchmark according to Step 5 in *<a href="#-quickstart">QuickStart</a>*.
-
 <span id="-result-uploading"></span>
 
 ##  📧 Result Uploading
@@ -286,6 +252,7 @@ If you use FEBench in your research, please cite:
 ```
 
 <span id="-contact"></span>
+
 ## ✉️ Contact
 
 - You may use the [Github Issues](https://github.com/decis-bench/febench/issues) to leave feedback or anything you want to discuss
