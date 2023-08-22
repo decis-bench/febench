@@ -8,7 +8,7 @@
   <a href="#-quickstart">QuickStart</a> •
   <a href="#-customized-implementation">Customized Implementation</a> •
   <a href="#-result-uploading">Result Uploading</a> •
-  <a href="#-citation">Citation</a>
+  <a href="#-contact">Contact</a>
 </p>
 
 
@@ -285,6 +285,8 @@ If you use FEBench in your research, please cite:
 }
 ```
 
-## ✉️ Contributing
+<span id="-contact"></span>
+## ✉️ Contact
 
-FEBench is developed as an open platform to attract industry and academia to collaborate on the benchmark and further development of RTFE. Please leave your comments in the [Issues](https://github.com/decis-bench/febench/issues) if you would like to get involved or contribute!
+- You may use the [Github Issues](https://github.com/decis-bench/febench/issues) to leave feedback or anything you want to discuss
+- Email: febench2023@gmail.com
