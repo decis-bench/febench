@@ -189,7 +189,8 @@ public class OpenMLDBPerfBenchmark_Cluster {
         try{
             Util.executeSQL("USE " + database + ";", executor);
             Util.executeSQL("SET @@execute_mode='online';", executor);
-            Util.executeSQL("DEPLOY " + deployName + " OPTIONS (SKIP_INDEX_CHECK=\"TRUE\") " + builder.toString(), executor);
+            // > 0.8.2 support bias
+            Util.executeSQL("DEPLOY " + deployName + " OPTIONS (RANGE_BIAS='inf') " + builder.toString(), executor);
         }
         catch (Exception e){
             throw new RuntimeException("Test abort because the deployment failed", e);

@@ -123,7 +123,7 @@ cd /work/febench
 git pull
 ```
 
-5. Enter `febench` directory and initialize FEBench tests
+5. Enter `febench` directory and initialize FEBench tests. Image **has** the env `FEBENCH_ROOT` and two `conf.properties`. If you need new conf files:
 
 ```bash
 cd /work/febench
