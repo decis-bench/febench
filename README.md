@@ -194,7 +194,6 @@ sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/co
 
 ```sh
 # ./OpenMLDB/conf/conf.properties
-
 ZK_CLUSTER=127.0.0.1:7181
 ZK_PATH=/openmldb
 ```
@@ -217,14 +216,14 @@ Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there
 
 1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB in MySQL) to persist the Flink table data. Note (1) the listening port is set 3306 by default and (2) you need to preload all the secondary tables into the storage engine.
 
-2. In Step 5, supply <dataset_ID> when running *compile_test.sh* script; and no parameter when running *test.sh*, e.g.,
+2. In Step 5, supply `<dataset_ID>` when running `compile_test.sh` script; and no parameter when running `test.sh`, e.g.,
 
 ```bash
 ./compile_test.sh 3 # compile and run the test of task3
 ./test.sh # rerun the test of task3
 ```
 
-3. You will need to rerun *compile_test.sh* if you modify the file *conf.properties*. This is not required for *OpenMLDB Evaluation*.
+3. You will need to rerun `compile_test.sh` if you modify the file `conf.properties`. This is not required for *OpenMLDB Evaluation*.
 
 ![image](./imgs/flink-jmh.png)
 
