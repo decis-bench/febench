@@ -51,7 +51,7 @@ We deeply appreciate the invaluable effort contributed by our dedicated team of 
 
 ## 🏆 Leaderboard
 
-This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted: *(i) Latency* defined with the commonly used `top percentiles' in the industry; *(ii) Throughput* measured in QPS, i.e., the number of requests processed per second.  
+This leaderboard showcases the performance of executing FEBench on various hardware configurations. Two performance metrics are adopted: *(i) Latency* defined with the commonly used `top percentiles' in the industry; *(ii) Throughput* measured in QPS, i.e., the number of requests processed per second.
 <br>
 
 **Leaderboard - Latency**
@@ -59,12 +59,14 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 | Contributor | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
 | Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
+| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
 
 **Leaderboard - Throughput**
 
-| Contributor | Hardware                                                     | Average Performance (ops/ms)  &nbsp; &nbsp; | Submit Date |
+| Contributor | Hardware                                                     | Average Performance (ops/s)  &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
-| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4.301                                       | 2023/2      |
+| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4301                                       | 2023/2      |
+| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
@@ -81,15 +83,15 @@ We have conducted an analysis of both the schema of our datasets and the charact
 
 ### Data Downloading
 
-Download the datasets. Update \<folder\_path\> with the specific path you are using,
+Download the datasets. Replace `<folder_path>` with the specific path you are using,
 
   ```sh
 wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P <folder_path>
   ```
 
-> Note the data files are in parquet format.
+> Note that the data files are in parquet format.
 
-Note that, the above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive (this copy is compressed, please decompress after downloading): https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy
+The above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive [HERE](https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy) (this copy is compressed, please decompress after downloading).
 
 ### Run in Docker
 
@@ -98,7 +100,7 @@ We have included a comprehensive testing procedure in a docker for you to try.
 1. Download docker image.
 
 ```bash
-docker pull vegatablechicken/febench:0.5.0
+docker pull vegatablechicken/febench:0.5.0-lmem
 ```
 
 2. Run the image.
@@ -108,7 +110,7 @@ docker pull vegatablechicken/febench:0.5.0
 docker run -it -v <data path>:/work/febench/dataset <image id>
 ```
 
-3. Start the clusters, addr is `localhost:7181`, path is `/openmldb``.
+3. Start the clusters, addr is `localhost:7181`, path is `/work/openmldb`.
 
 ```bash
 /work/init.sh
@@ -117,27 +119,40 @@ docker run -it -v <data path>:/work/febench/dataset <image id>
 4. update the repository
 
 ```bash
-git pull 
+cd /work/febench
+git pull
 ```
 
-5. Enter `febench` directory and init the configuration.
+5. Enter `febench` directory and initialize FeBench tests
 
 ```bash
-cd /home/febench
+cd /work/febench
 export FEBENCH_ROOT=`pwd`
 sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
 6. Run the benchmark according to Step 5 in *<a href="#-customized-implementation">Customized Implementation</a>*.
+* OpenMLDB
+```bash
+cd /work/febench/OpenMLDB
+./compile_test.sh  #compile test
+./test.sh <dataset_ID> #run task <dataset_ID>
+```
+* Flink
+```bash
+cd /work/febench/flink
+./compile_test.sh <dataset_ID> #compile and run test of task <dataset_ID>
+./test.sh #rerun test of task <dataset_ID>
+```
 
 <span id="-customized-implementation"></span>
 
 ## ⚡️ Customized Implementation
 
-You can build the cluster from the ground up, enabling you to customize the testing environment according to your needs.
+You can build and customize your cluster scratch according to your needs.
 
-In this section you'll find: (1) Prerequisites, (2) AI features, (3) OpenMLDB evaluation, (4) Flink evaluation.
+In this section you'll find: (1) System prerequisites, (2) AI features, (3) OpenMLDB evaluation, (4) Flink evaluation.
 
 ### Prerequisites
 
@@ -148,7 +163,7 @@ Before executing the benchmarking scripts, ensure that your environment meets th
 
 ### AI Features
 
-In the *features* folder: Check out the features utilized in each of the 6 AI tasks, which are generated by the commercial automated ML tool [HCML](https://en.4paradigm.com/product/hypercycle_ml.html) (the simplified version is available at *https://github.com/4paradigm/AutoX*).
+In the *features* folder: Check out the features utilized in each of the 6 AI tasks, which are generated by the commercial automated ML tool [HCML](https://en.4paradigm.com/product/hypercycle_ml.html) (the simplified version is available at *https://github.com/4paradigm/AutoX* ).
 
 ### OpenMLDB Evaluation
 
@@ -156,11 +171,15 @@ In the *features* folder: Check out the features utilized in each of the 6 AI ta
 
 **Step 2:** Download and move the data files to the `dataset` directory of the repository
 
-**Step 3:** [Start the OpenMLDB cluster](https://openmldb.ai/docs/zh/main/deploy/install_deploy.html). For a quick start, you can use the [docker](https://openmldb.ai/docs/zh/main/quickstart/openmldb_quickstart.html#id4), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
+**Step 3:** [Start the OpenMLDB cluster](https://github.com/4paradigm/OpenMLDB/blob/main/docs/en/deploy/install_deploy.md#install-and-deploy). For a quick start, you can use the [docker](https://github.com/4paradigm/OpenMLDB/blob/main/docs/en/quickstart/openmldb_quickstart.md#pulls-the-image), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
 
-> Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them. You can refer to [this document](https://openmldb.ai/docs/zh/main/maintain/faq.html#java-lang-outofmemoryerror-java-heap-space) for guidance. One acceptable size for these parameters is 32G/32G.
+> Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them by setting `spark.default.conf` in `conf/taskmanager.properties` and restart taskmanager, or set spark parameters through CLI. You can refer to [Spark Client Configuration](https://github.com/4paradigm/OpenMLDB/blob/main/docs/en/reference/client_config/client_spark_config.md#spark-client-configuration).
+>```
+>spark.default.conf=spark.driver.memory=32g;spark.executor.memory=32g
+>```
 
-**Step 4:** Modify the `conf.properties.template` file to create your own `conf.properties` file in the `./OpenMLDB/conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries. 
+
+**Step 4:** Modify the `conf.properties.template` file to create your own `conf.properties` file in the `./OpenMLDB/conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries.
 
 4.1  Modify the locations of data and query,
 
@@ -184,7 +203,7 @@ ZK_PATH=/openmldb
 
 ```bash
 cd OpenMLDB
-./compile_test.sh 
+./compile_test.sh
 ./test.sh <dataset_ID>
 ```
 
@@ -198,11 +217,11 @@ Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there
 
 1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB in MySQL) to persist the Flink table data. Note (1) the listening port is set 3306 by default and (2) you need to preload all the secondary tables into the storage engine.
 
-2. In Step 5, supply <dataset_ID> when running *compile_test.sh* script; and no parameter when running *test.sh*, e.g., 
+2. In Step 5, supply <dataset_ID> when running *compile_test.sh* script; and no parameter when running *test.sh*, e.g.,
 
 ```bash
-./compile_test.sh 3 // compile and run the test of task3
-./test.sh // rerun the test of task3
+./compile_test.sh 3 # compile and run the test of task3
+./test.sh # rerun the test of task3
 ```
 
 3. You will need to rerun *compile_test.sh* if you modify the file *conf.properties*. This is not required for *OpenMLDB Evaluation*.
@@ -213,12 +232,13 @@ Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there
 
 ##  📧 Result Uploading
 
-The benchmark results are stored at \<Openmldb/flink>/logs. If you'd like to share your results, please feel free to [send us an email](mailto:febench2023@gmail.com). Please tell us your **institution (optional)**, **system configurations**, and **attach the result file** to the email. We appreciate your contribution.
+The benchmark results are stored at `OpenMLDB/logs` or `flink/logs`. If you'd like to share your results, please feel free to [send us an email](mailto:febench2023@gmail.com). Please tell us your **institution (optional)**, **system configurations**, and **attach the result file** to the email. We appreciate your contribution.
 
 Example of system configurations:
 
-| Setting          | Value                                        |
+| Field            | Setting                                      |
 | ---------------- | -------------------------------------------- |
+| No. of Servers   | 1                                            |
 | Memory           | 512 GB DDR4 2667 MHz                         |
 | CPU              | 2x Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz |
 | Network          | 1 Gbps                                       |
@@ -226,8 +246,10 @@ Example of system configurations:
 | Tablet Server    | 3                                            |
 | Name Server      | 1                                            |
 | OpenMLDB Version | v0.6.4                                       |
+| Docker Image Version| N.A.                                      |
 
-<span id="-citation"></span>  
+
+<span id="-citation"></span>
 
 ## 📎 Citation
 
@@ -235,7 +257,7 @@ If you use FEBench in your research, please cite:
 
 ```bibtex
 @article{zhou2023febench,
-  author       = {Xuanhe Zhou and 
+  author       = {Xuanhe Zhou and
                   Cheng Chen and
                   Kunyi Li and
                   Bingsheng He and
