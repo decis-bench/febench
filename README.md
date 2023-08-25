@@ -123,7 +123,7 @@ cd /work/febench
 git pull
 ```
 
-5. Enter `febench` directory and initialize FeBench tests
+5. Enter `febench` directory and initialize FEBench tests
 
 ```bash
 cd /work/febench
@@ -148,11 +148,18 @@ cd /work/febench/flink
 
 <span id="-customized-implementation"></span>
 
+### Memory Usage Reference
+Here we show the approximate memory usage and execution time for each task in FEBench for your reference.
+|Task         |Q0     |Q1     |Q2     |Q3     |Q4     |Q5     |
+|-------------|-------|-------|-------|-------|-------|-------|
+| Memory (GB) | 20    | 5     | 5     | 120   | 50    | 500   |
+| Exe. Time   | 15min | 15min | 15min | 1hr   | 4hrs  | 4hrs  | 
+Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](https://github.com/decis-bench/febench/blob/main/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql). 
+ 
+
 ## ⚡️ Customized Implementation
 
-You can build and customize your cluster scratch according to your needs.
-
-In this section you'll find: (1) System prerequisites, (2) AI features, (3) OpenMLDB evaluation, (4) Flink evaluation.
+You can build and customize your cluster from scratch according to your needs. In this section you'll find: (1) System prerequisites, (2) AI features, (3) OpenMLDB evaluation, (4) Flink evaluation.
 
 ### Prerequisites
 
