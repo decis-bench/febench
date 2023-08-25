@@ -154,6 +154,7 @@ Here we show the approximate memory usage and execution time for each task in FE
 |-------------|-------|-------|-------|-------|-------|-------|
 | Memory (GB) | 20    | 5     | 5     | 120   | 50    | 500   |
 | Exe. Time   | 15min | 15min | 15min | 1hr   | 4hrs  | 4hrs  | 
+
 Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](https://github.com/decis-bench/febench/blob/main/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql). 
  
 
