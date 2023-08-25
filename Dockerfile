@@ -17,13 +17,13 @@ ENV FEBENCH_ROOT=/work/febench
 RUN sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
 RUN sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 
-ENV OPENMLDB_MODE=cluster
 # febench use zk 7181, 3 tablet, default driver memory
 RUN sed -i'' 's/localhost:2181/localhost:7181/g' /work/openmldb/conf/hosts
-RUN sed -i'' 's/[tablet]/localhost:7181/g' /work/openmldb/conf/hosts
+RUN sed -i'' '/\[tablet\]/a localhost:10923 /tmp/openmldb/tablet-3' /work/openmldb/conf/hosts
+RUN sed -i'' 's/spark.default.conf=/spark.default.conf=spark.driver.memory=32g;/g' /work/openmldb/conf/taskmanager.properties.template
 
 # maven
-RUN apt update && apt install -y vim maven rsync curl procps git
+RUN apt update && apt install -y vim maven rsync curl procps git python3 python3-pip python3-numpy
 
 # temp: use un-released spark connector in OpenMLDB
 RUN curl -O --output-dir /work/openmldb/spark/jars http://43.138.115.238/download/test/openmldb-batch-0.8.2-SNAPSHOT.jar
