@@ -33,7 +33,7 @@
 
 👐 With FEBench, we preliminarily investigate the effectiveness of feature extraction systems together with advanced hardwares, focusing on aspects like overall latency, tail latency, and concurrency performance.
 
-For further insights, please check out our detailed [Technical Report](https://github.com/decis-bench/febench/blob/main/report/febench.pdf) and [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
+For further insights, please check out our detailed [Technical Report](report/febench.pdf) and [Standard Specification](report/Feature_Extraction_Benchmark_Standard_Specification.pdf)!
 
 ## 👫 Community
 
@@ -77,7 +77,7 @@ Note we utilize the performance results of **OpenMLDB** as the basis for ranking
 
 ## &#x1F4DC;  Data and Query
 
-We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](https://github.com/decis-bench/febench/blob/main/report/tableSchema.md) and [query analysis](https://github.com/decis-bench/febench/blob/main/report/queryAnalysis.md) for further information.
+We have conducted an analysis of both the schema of our datasets and the characteristics of the queries. Please refer to our detailed [data schema analysis](report/tableSchema.md) and [query analysis](report/queryAnalysis.md) for further information.
 
 <span id="-quickstart"></span>
 
@@ -157,7 +157,7 @@ Here we show the approximate memory usage and execution time for each task in FE
 | Memory (GB) | 20    | 6     | 6     | 160   | 50    | 570   |
 | Exe. Time   | 15min | 15min | 15min | 1hr   | 4hrs  | 2.5hrs  | 
 
-Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](https://github.com/decis-bench/febench/blob/main/OpenMLDB/fequery/Q3/Q3_create_benchmark.sql). 
+Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](OpenMLDB/fequery/Q3/Q3_create_benchmark.sql). 
  
 
 ## ⚡️ Customized Implementation
