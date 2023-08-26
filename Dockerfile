@@ -24,6 +24,9 @@ RUN sed -i'' 's/spark.default.conf=/spark.default.conf=spark.driver.memory=32g;/
 
 # maven
 RUN apt update && apt install -y vim maven rsync curl procps git python3 python3-pip python3-numpy
+# compile once, to avoid download failures when mvn build
+WORKDIR /work/febench/OpenMLDB
+RUN ./compile_test.sh
 
 # temp: use un-released spark connector in OpenMLDB
 RUN curl -O --output-dir /work/openmldb/spark/jars http://43.138.115.238/download/test/openmldb-batch-0.8.2-SNAPSHOT.jar
