@@ -58,8 +58,8 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 
 | Contributor | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
-| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
-| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_755_cent7.md) | 14.184/15.758/17.592                                 | 2023/8      |
+| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
+| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](febench/blob/main/OpenMLDB/leaderboard/2_755_cent7.md) | 14.184/15.758/17.592                                 | 2023/8      |
 | 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
 
 **Leaderboard - Throughput**
