@@ -60,15 +60,15 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
 | Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
 | Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 14.184/15.758/17.592                                 | 2023/8      |
-| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
+| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
 
 **Leaderboard - Throughput**
 
 | Contributor | Hardware                                                     | Average Performance (ops/s)  &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
-| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_512_cent7.md) | 4301                                       | 2023/2      |
-| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_755_cent7.md) | 817                                        | 2023/8      |
-| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](https://github.com/decis-bench/febench/blob/main/OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
+| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_512_cent7.md) | 4301                                       | 2023/2      |
+| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 817                                        | 2023/8      |
+| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
