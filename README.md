@@ -58,17 +58,15 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 
 | Contributor | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
-| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
-| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 17.642/22.045/24.534                                 | 2023/8      |
-| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
+| Tsinghua    | [Dual Xeon, 755GB DDR4, CentOS 7](OpenMLDB/leaderboard/2_755_cent7.md) | 17.642/22.045/24.534                                 | 2023/8      |
+| 4Paradigm   | [ FusionServer 2288H V7, Dual Xeon, 438GB DDR5, Rocky 9](OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
 
 **Leaderboard - Throughput**
 
 | Contributor | Hardware                                                     | Average Performance (ops/s)  &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
-| Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_512_cent7.md) | 4301                                       | 2023/2      |
-| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 703                                        | 2023/8      |
-| 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
+| Tsinghua    | [Dual Xeon, 755GB DDR4, CentOS 7](OpenMLDB/leaderboard/2_755_cent7.md) | 703                                        | 2023/8      |
+| 4Paradigm   | [ FusionServer 2288H V7, Dual Xeon, 438GB DDR5, Rocky 9](OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
@@ -134,110 +132,33 @@ sed s#\<path\>#$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenM
 sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
 ```
 
-6. Run the benchmark according to Step 5 in *<a href="#-customized-implementation">Customized Implementation</a>*.
+6. Compile and run the benchmark.
 * OpenMLDB
 ```bash
 cd /work/febench/OpenMLDB
 ./compile_test.sh  #compile test
 ./test.sh <dataset_ID> #run task <dataset_ID>
 ```
+![image](../imgs/openmldb-jmh.png)
 * Flink
 ```bash
 cd /work/febench/flink
 ./compile_test.sh <dataset_ID> #compile and run test of task <dataset_ID>
 ./test.sh #rerun test of task <dataset_ID>
 ```
+![image](../imgs/flink-jmh.png)
 
-<span id="-customized-implementation"></span>
+For native execution and customizations, you can refer to the guide [here](report/customization.md).
 
 ### Memory Usage Reference
 Here we show the approximate memory usage and execution time for each task in FEBench for your reference.
 |Task         |Q0     |Q1     |Q2     |Q3     |Q4     |Q5     |
 |-------------|-------|-------|-------|-------|-------|-------|
-| Memory (GB) | 20    | 6     | 6     | 160   | 25    | 570   |
-| Exe. Time   | 15min | 15min | 15min | 1hr   | 1hr  | 2.5hrs  | 
+| Memory (GB) | 20    | 6     | 6     | 160   | 30    | 570   |
+| Exe. Time   | 15min | 15min | 15min | 1hr   | 1hr  | 2.5hrs  |
 
-Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](OpenMLDB/fequery/Q3/Q3_create_benchmark.sql). 
- 
+Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](OpenMLDB/fequery/Q3/Q3_create_benchmark.sql).
 
-## ⚡️ Customized Implementation
-
-You can build and customize your cluster from scratch according to your needs. In this section you'll find: (1) System prerequisites, (2) AI features, (3) OpenMLDB evaluation, (4) Flink evaluation.
-
-### Prerequisites
-
-Before executing the benchmarking scripts, ensure that your environment meets the following version requirements, assuming you've already correctly configured the target FE system.
-
-- Java JDK: Version 1.8.0 or higher
-- Maven: 3.8.0 (recommended)
-
-### AI Features
-
-In the *features* folder: Check out the features utilized in each of the 6 AI tasks, which are generated by the commercial automated ML tool [HCML](https://en.4paradigm.com/product/hypercycle_ml.html) (the simplified version is available at *https://github.com/4paradigm/AutoX* ).
-
-### OpenMLDB Evaluation
-
-**Step 1:** Clone the repository
-
-**Step 2:** Download and move the data files to the `dataset` directory of the repository
-
-**Step 3:** [Start the OpenMLDB cluster](https://github.com/4paradigm/OpenMLDB/blob/main/docs/en/deploy/install_deploy.md#install-and-deploy). For a quick start, you can use the [docker](https://github.com/4paradigm/OpenMLDB/blob/main/docs/en/quickstart/openmldb_quickstart.md#pulls-the-image), but note that the performance may not be optimal since all the components are deployed on a single physical machine.
-
-> Please be aware that the default values for `spark.driver.memory` and `spark.executor.memory` may not be enough for your needs. If you encounter a `java.lang.OutOfMemoryError: Java heap space` error, you may need to increase them by setting `spark.default.conf` in `conf/taskmanager.properties` and restart taskmanager, or set spark parameters through CLI. You can refer to [Spark Client Configuration](https://github.com/4paradigm/OpenMLDB/blob/main/docs/en/reference/client_config/client_spark_config.md#spark-client-configuration).
->```
->spark.default.conf=spark.driver.memory=32g;spark.executor.memory=32g
->```
-
-
-**Step 4:** Modify the `conf.properties.template` file to create your own `conf.properties` file in the `./OpenMLDB/conf` directory, and update the configuration settings in the file accordingly, including the OpenMLDB cluster and the locations of data and queries.
-
-4.1  Modify the locations of data and query,
-
-```sh
-export FEBENCH_ROOT=`pwd`
-# better to add file://
-sed s#\<path\>#file://$FEBENCH_ROOT# ./OpenMLDB/conf/conf.properties.template > ./OpenMLDB/conf/conf.properties
-sed s#\<path\>#$FEBENCH_ROOT# ./flink/conf/conf.properties.template > ./flink/conf/conf.properties
-```
-
-4.2 Modify the OpenMLDB cluster in `conf.properties` to your own,
-
-```sh
-# ./OpenMLDB/conf/conf.properties
-ZK_CLUSTER=127.0.0.1:7181
-ZK_PATH=/openmldb
-```
-
-**Step 5:** Compile and run the test
-
-```bash
-cd OpenMLDB
-./compile_test.sh
-./test.sh <dataset_ID>
-```
-
-Example test result looks as follows
-![image](./imgs/openmldb-jmh.png)
-
-
-### Flink Evaluation
-
-Repeat the 1-5 steps in [*OpenMLDB Evaluation*](#openmldb-evaluation). And there are a few more steps:
-
-1. In Step 3, additionally start a disk-based storage engine (e.g., RocksDB in MySQL) to persist the Flink table data. Note (1) the listening port is set 3306 by default and (2) you need to preload all the secondary tables into the storage engine.
-
-2. In Step 5, supply `<dataset_ID>` when running `compile_test.sh` script; and no parameter when running `test.sh`, e.g.,
-
-```bash
-./compile_test.sh 3 # compile and run the test of task3
-./test.sh # rerun the test of task3
-```
-
-3. You will need to rerun `compile_test.sh` if you modify the file `conf.properties`. This is not required for *OpenMLDB Evaluation*.
-
-![image](./imgs/flink-jmh.png)
-
-<span id="-result-uploading"></span>
 
 ##  📧 Result Uploading
 
@@ -245,18 +166,18 @@ The benchmark results are stored at `OpenMLDB/logs` or `flink/logs`. If you'd li
 
 Example of system configurations:
 
-| Field            | Setting                                      |
-| ---------------- | -------------------------------------------- |
-| No. of Servers   | 1                                            |
-| Memory           | 512 GB DDR4 2667 MHz                         |
-| CPU              | 2x Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz |
-| Network          | 1 Gbps                                       |
-| OS               | CentOS 7                                     |
-| Tablet Server    | 3                                            |
-| Name Server      | 1                                            |
-| OpenMLDB Version | v0.6.4                                       |
-| Docker Image Version| N.A.                                      |
 
+| Field             | Setting                                        |
+|-------------------|------------------------------------------------|
+| No. of Servers    | 1                                              |
+| Memory            | 755 GB DDR4 2666 MT/s                          |
+| CPU               | 2xIntel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz     |
+| Network           | 1 Gbps                                         |
+| OS                | CentOS 7                                       |
+| Tablet Server     | 3                                              |
+| Name Server       | 1                                              |
+| OpenMLDB Version  | v0.8.2                                         |
+| Docker Image Version | febench:0.5.0-lmem-m2                       |
 
 <span id="-citation"></span>
 
