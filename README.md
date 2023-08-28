@@ -59,7 +59,7 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 | Contributor | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
 | Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_512_cent7.md) | 2.379/3.224/5.603                                 | 2023/2      |
-| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 14.184/15.758/17.592                                 | 2023/8      |
+| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 17.642/22.045/24.534                                 | 2023/8      |
 | 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
 
 **Leaderboard - Throughput**
@@ -67,7 +67,7 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 | Contributor | Hardware                                                     | Average Performance (ops/s)  &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
 | Tsinghua    | [(Dual Xeon, 512GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_512_cent7.md) | 4301                                       | 2023/2      |
-| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 817                                        | 2023/8      |
+| Tsinghua    | [(Dual Xeon, 755GB DDR4, CentOS 7)](OpenMLDB/leaderboard/2_755_cent7.md) | 703                                        | 2023/8      |
 | 4Paradigm   | [(Dual Xeon, 438GB DDR5, Rocky 9)](OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
@@ -154,8 +154,8 @@ cd /work/febench/flink
 Here we show the approximate memory usage and execution time for each task in FEBench for your reference.
 |Task         |Q0     |Q1     |Q2     |Q3     |Q4     |Q5     |
 |-------------|-------|-------|-------|-------|-------|-------|
-| Memory (GB) | 20    | 6     | 6     | 160   | 50    | 570   |
-| Exe. Time   | 15min | 15min | 15min | 1hr   | 4hrs  | 2.5hrs  | 
+| Memory (GB) | 20    | 6     | 6     | 160   | 25    | 570   |
+| Exe. Time   | 15min | 15min | 15min | 1hr   | 1hr  | 2.5hrs  | 
 
 Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](OpenMLDB/fequery/Q3/Q3_create_benchmark.sql). 
  
