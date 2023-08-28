@@ -58,15 +58,15 @@ This leaderboard showcases the performance of executing FEBench on various hardw
 
 | Contributor | Hardware                                                     | Average TP50/90/99 Performance (ms) &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------- | ----------- |
-| Tsinghua    | [Dual Xeon, 755GB DDR4, CentOS 7](OpenMLDB/leaderboard/2_755_cent7.md) | 17.642/22.045/24.534                                 | 2023/8      |
-| 4Paradigm   | [ FusionServer 2288H V7, Dual Xeon, 438GB DDR5, Rocky 9](OpenMLDB/leaderboard/2_438_rocky9.md) | 10.697/12.676/15.039                              | 2023/8      |
+| Tsinghua    | [Dual Xeon, 755GB DDR4, CentOS 7](OpenMLDB/leaderboard/2_755_cent7.md)                         | 21.31/25.1/27.69                                 | 2023/8      |
+| 4Paradigm   | [ FusionServer 2288H V7, Dual Xeon, 438GB DDR5, Rocky 9](OpenMLDB/leaderboard/2_438_rocky9.md) | 15.82/18.51/21.8                                 | 2023/8      |
 
 **Leaderboard - Throughput**
 
 | Contributor | Hardware                                                     | Average Performance (ops/s)  &nbsp; &nbsp; | Submit Date |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------- | ----------- |
-| Tsinghua    | [Dual Xeon, 755GB DDR4, CentOS 7](OpenMLDB/leaderboard/2_755_cent7.md) | 703                                        | 2023/8      |
-| 4Paradigm   | [ FusionServer 2288H V7, Dual Xeon, 438GB DDR5, Rocky 9](OpenMLDB/leaderboard/2_438_rocky9.md) | 1332                                       | 2023/8      |
+| Tsinghua    | [Dual Xeon, 755GB DDR4, CentOS 7](OpenMLDB/leaderboard/2_755_cent7.md) | 479.6                                        | 2023/8      |
+| 4Paradigm   | [ FusionServer 2288H V7, Dual Xeon, 438GB DDR5, Rocky 9](OpenMLDB/leaderboard/2_438_rocky9.md) | 685.7                                       | 2023/8      |
 
 Note we utilize the performance results of **OpenMLDB** as the basis for ranking. To participate, kindly implement FEBench following our [Standard Specification](https://github.com/decis-bench/febench/blob/main/report/Feature_Extraction_Benchmark_Standard_Specification.pdf) and upload your results by following the [Result Uploading](#-result-uploading) guidelines.
 
@@ -139,14 +139,14 @@ cd /work/febench/OpenMLDB
 ./compile_test.sh  #compile test
 ./test.sh <dataset_ID> #run task <dataset_ID>
 ```
-![image](../imgs/openmldb-jmh.png)
+![image](./imgs/openmldb-jmh.png)
 * Flink
 ```bash
 cd /work/febench/flink
 ./compile_test.sh <dataset_ID> #compile and run test of task <dataset_ID>
 ./test.sh #rerun test of task <dataset_ID>
 ```
-![image](../imgs/flink-jmh.png)
+![image](./imgs/flink-jmh.png)
 
 For native execution and customizations, you can refer to the guide [here](report/customization.md).
 
