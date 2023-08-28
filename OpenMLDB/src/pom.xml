@@ -27,19 +27,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <dependency>
             <groupId>com.4paradigm.openmldb</groupId>
             <artifactId>openmldb-jdbc</artifactId>
-            <version>0.8.0</version>
-            <!--version>0.6.2</version-->
+            <version>0.8.2-20230825.035530-10</version>
         </dependency>
-        <!-- <dependency>
-            <groupId>com.4paradigm.openmldb</groupId>
-            <artifactId>openmldb-native</artifactId>
-            <version>0.6.3</version>
-            <version>0.6.2-allinone</version>
-        </dependency> -->
         <dependency>
             <groupId>com.4paradigm.openmldb</groupId>
             <artifactId>openmldb-native</artifactId>
-            <version>0.8.0</version>
+            <version>0.8.2-20230825.035544-10</version> <!-- use snapshot support deploy bias, use > 0.8.2 -->
             <type>pom</type>
         </dependency>
 

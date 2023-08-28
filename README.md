@@ -103,6 +103,12 @@ We have included a comprehensive testing procedure in a docker for you to try.
 docker pull vegatablechicken/febench:0.5.0-lmem
 ```
 
+You can use the image with maven cache, to speed up compilation.
+
+```bash
+docker pull vegatablechicken/febench:0.5.0-lmem-m2
+```
+
 2. Run the image.
 
 ```bash
@@ -123,7 +129,7 @@ cd /work/febench
 git pull
 ```
 
-5. Enter `febench` directory and initialize FEBench tests
+5. Enter `febench` directory and initialize FEBench tests. Image **has** the env `FEBENCH_ROOT` and two `conf.properties`. If you need new conf files:
 
 ```bash
 cd /work/febench

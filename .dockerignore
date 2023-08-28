@@ -5,3 +5,4 @@ Dockerfile
 dataset/*
 */target/
 *logs/
+OpenMLDB/lib
