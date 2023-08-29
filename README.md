@@ -100,7 +100,7 @@ We have included a comprehensive testing procedure in a docker for you to try.
 1. Download docker image.
 
 ```bash
-docker pull vegatablechicken/febench:0.5.0-lmem
+docker pull vegatablechicken/febench:0.5.0-lmem-lm
 ```
 
 2. Run the image.
