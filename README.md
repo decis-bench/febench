@@ -83,15 +83,14 @@ We have conducted an analysis of both the schema of our datasets and the charact
 
 ### Data Downloading
 
-Download the datasets. Replace `<folder_path>` with the specific path you are using,
+As the data size is large (~ 60 GB), we have provided two locations to download the dataset:
+- Option 1, HTTP server (located in China mainland): Please use the following command to download (replace `<folder_path>` with the specific path you are using)
 
-  ```sh
+```sh
 wget -r -np -R "index.html*"  -nH --cut-dirs=3  http://43.138.115.238/download/febench/data/  -P <folder_path>
-  ```
+```
 
-> Note that the data files are in parquet format.
-
-The above server is located in China, if you are experiencing slow connection, you may try to download from OneDrive [HERE](https://1drv.ms/f/s!At2bMwG7v7Dngbg21F0ELbZrhC7NBA?e=atHwQy) (this copy is compressed, please decompress after downloading).
+- Option 2, OneDrive: You can also download from OneDrive [HERE](https://1drv.ms/f/s!At2bMwG7v7Dngb1Gcmvddus3gSxsUA?e=1omofS) (this copy is compressed, please decompress after downloading).
 
 ### Run in Docker
 
