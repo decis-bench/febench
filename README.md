@@ -7,7 +7,6 @@
   <a href="#-leaderboard">Leaderboard</a> •
   <a href="#-data-and-query">Data and Query</a> •
   <a href="#-quickstart">QuickStart</a> •
-  <a href="#-customized-implementation">Customized Implementation</a> •
   <a href="#-result-uploading">Result Uploading</a> •
   <a href="#-contact">Contact</a>
 </p>
