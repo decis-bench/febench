@@ -98,7 +98,7 @@ We have included a comprehensive testing procedure in a docker for you to try.
 1. Download docker image.
 
 ```bash
-docker pull vegatablechicken/febench:0.5.0-lmem-m2
+docker pull vegatablechicken/febench:0.5.0-lmem
 ```
 
 You can use the image with maven cache, to speed up compilation.
@@ -161,7 +161,7 @@ Here we show the approximate memory usage and execution time for each task in FE
 | Memory (GB) | 20    | 6     | 6     | 160   | 30    | 570   |
 | Exe. Time   | 15min | 15min | 15min | 1hr   | 1hr  | 2.5hrs  |
 
-Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. You can reduce the memory usage by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)`, for example [here](OpenMLDB/fequery/Q3/Q3_create_benchmark.sql).
+Note that for larger datasets like Q3, Q4 and Q5, please make sure enough memory is allocated. The memory usage is reduced by setting the table replica numbers to 1 with `OPTIONS(replicanum=1)` (default value is set to 3), for example as set [here](OpenMLDB/fequery/Q3/Q3_create_benchmark.sql).
 
 
 ##  📧 Result Uploading
